@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CursorController : MonoBehaviour
-{
-    private int row;
-    private int file;
-    public bool onUnit;
+{    
+    private Vector2Int index;
+    private float cursorHight = 0.05f;
+    private bool onUnit;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,15 +21,22 @@ public class CursorController : MonoBehaviour
         
     }
 
-    public void InitCursor(int row, int file)
+    public void InitCursor(int row, int file, Vector3 position)
     {
-        this.row = row;
-        this.file = file;
+        Vector3 pos = position;
+        pos.y += cursorHight;
+        transform.position = pos;
+        index = new Vector2Int(row, file);
         this.onUnit = false;
     }
 
     public void setUnit()
     {
         this.onUnit = true;
+    }
+
+    public Vector2Int getIndex()
+    {
+        return index;
     }
 }

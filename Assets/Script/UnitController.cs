@@ -96,4 +96,11 @@ public class UnitController : MonoBehaviour
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.useGravity = true;
     }
+    public void MoveUnit(Vector3 target)
+    {
+        transform.position = target;
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        if(!rigidbody.useGravity)
+            rigidbody.useGravity= true;
+    }
 }

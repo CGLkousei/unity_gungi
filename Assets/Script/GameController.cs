@@ -56,7 +56,7 @@ public class GameSceneScript : MonoBehaviour
                 Vector3 pos = getPosition(i, j);
                 GameObject cursor = Instantiate(prefabCursor, pos, Quaternion.identity);                
                 CursorController cursorctrl = cursor.AddComponent<CursorController>();
-                cursorctrl.InitCursor(i, j);
+                cursorctrl.InitCursor(i, j, pos);
 
                 if (type == 0)
                 {
@@ -108,40 +108,47 @@ public class GameSceneScript : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                GameObject clickedObject = hit.collider.gameObject;
-                bool flag = true;
+                GameObject clickedObject = hit.collider.gameObject;                
 
-                if (selectedUnit != null && selectedUnit != clickedObject)
-                {
-                    UnitController unitctrl = selectedUnit.GetComponent<UnitController>();
-                    if (unitctrl != null)
-                        unitctrl.LiftOffUnit();
-                }
-                else if(selectedUnit != null && selectedUnit == clickedObject)
-                {
-                    UnitController unitctrl = selectedUnit.GetComponent<UnitController>();
-                    if (unitctrl != null)
-                        unitctrl.LiftOffUnit();                    
-
-                    selectedUnit = null;
-                    flag = false;
-                }
-
-                if(selectedUnit != clickedObject && flag)
+                if (selectedUnit == null)
                 {
                     selectedUnit = clickedObject;
                     UnitController unitctrl = clickedObject.GetComponent<UnitController>();
                     if (unitctrl != null)
-                    {
                         unitctrl.LiftUnit();
+                    
+                }
+                else
+                {
+                    UnitController unitctrl = selectedUnit.GetComponent<UnitController>();                                                            
+
+                    if (selectedUnit == clickedObject)
+                    {
+                        if (unitctrl != null)
+                            unitctrl.LiftOffUnit();
+                        selectedUnit = null;                        
                     }
                     else
                     {
-                        CursorController cursorctrl = clickedObject.GetComponent<CursorController>();
-                        if(cursorctrl != null)
+                        UnitController _unitctrl = clickedObject.GetComponent<UnitController>();
+                        if (_unitctrl != null)
                         {
+                            if (unitctrl != null)
+                                unitctrl.LiftOffUnit();
 
+                            _unitctrl.LiftUnit();
+                            selectedUnit = clickedObject;                            
                         }
+                        else
+                        {
+                            CursorController cursorctrl = clickedObject.GetComponent<CursorController>();                            
+                            if (cursorctrl != null)
+                            {
+                                Vector2Int index = cursorctrl.getIndex();                                
+                                selectedUnit = null;
+                                unitctrl.MoveUnit(getPosition(index.x, index.y));
+                            }
+                        }                    
                     }
                 }
             }
