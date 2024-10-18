@@ -346,6 +346,8 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: badd41e17dae2c9478473f2fb12ce9c0, type: 3}
   - {fileID: 919132149155446097, guid: c4279251803bb2e448abdf8ec549d098, type: 3}
   - {fileID: 919132149155446097, guid: fee09259bd3b06f4db12f55cabbc4cb1, type: 3}
+  transparentMaterial: {fileID: 2100000, guid: 34a2ce06fb47f8d4f961d798c6cca033, type: 2}
+  cursorMaterial: {fileID: 2100000, guid: 459c955fe36124c4d963a18ede898026, type: 2}
 --- !u!4 &756592674
 Transform:
   m_ObjectHideFlags: 0

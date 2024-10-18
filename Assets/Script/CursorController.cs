@@ -34,6 +34,10 @@ public class CursorController : MonoBehaviour
     {
         this.onUnit = true;
     }
+    public void clearUnit()
+    {
+        this.onUnit = false;
+    }
 
     public Vector2Int getIndex()
     {

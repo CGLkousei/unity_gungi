@@ -10,6 +10,8 @@ public class GameSceneScript : MonoBehaviour
     [SerializeField] GameObject prefabCursor;
     [SerializeField] List<GameObject> whiteUnits;
     [SerializeField] List<GameObject> blackUnits;
+    [SerializeField] Material transparentMaterial;
+    [SerializeField] Material cursorMaterial;
 
     //Default set;
     int[,] boardSetting =
@@ -30,6 +32,7 @@ public class GameSceneScript : MonoBehaviour
     const int boardHeight = 9;
 
     CursorController[,] cursors;
+    UnitController[,] units;
 
     private float tileWidth;
     private float tileHeight;
@@ -41,6 +44,8 @@ public class GameSceneScript : MonoBehaviour
     void Start()
     {
         cursors = new CursorController[boardWidth, boardHeight];
+        units = new UnitController[boardWidth, boardHeight];
+
         Vector3 tileScale = prefabTile.transform.localScale;
         tileWidth = tileScale.x;
         tileHeight = tileScale.z;
@@ -90,9 +95,11 @@ public class GameSceneScript : MonoBehaviour
                 collider.center = new Vector3(0f, 0f, 0.002f);
 
                 UnitController unitctrl = unit.AddComponent<UnitController>();
-                unitctrl.InitUnit(player, type, pos, new Vector2Int(i, j));
+                unitctrl.InitUnit(player, type-1, pos, new Vector2Int(i, j));
 
                 cursorctrl.setUnit();
+
+                units[i, j] = unitctrl;
                 cursors[i, j] = cursorctrl;
             }
         }        
@@ -115,8 +122,22 @@ public class GameSceneScript : MonoBehaviour
                     selectedUnit = clickedObject;
                     UnitController unitctrl = clickedObject.GetComponent<UnitController>();
                     if (unitctrl != null)
+                    {
                         unitctrl.LiftUnit();
-                    
+                        List<Vector2Int> list = unitctrl.getMovableTiles(cursors, unitctrl.getUnitType());
+                        foreach (var index in list)
+                        {
+                            Vector2Int unitIndex = unitctrl.getIndex();
+                            Vector2Int cursor_index = index + unitIndex;
+                            cursors[unitIndex.x, unitIndex.y].clearUnit();
+
+                            if (cursor_index.x >= 0 && cursor_index.x < boardWidth && cursor_index.y >= 0 && cursor_index.y < boardHeight)
+                            {
+                                Renderer renderer = cursors[cursor_index.x, cursor_index.y].GetComponent<Renderer>();                                
+                                renderer.material = cursorMaterial;
+                            }
+                        }
+                    }                                      
                 }
                 else
                 {
@@ -125,8 +146,11 @@ public class GameSceneScript : MonoBehaviour
                     if (selectedUnit == clickedObject)
                     {
                         if (unitctrl != null)
+                        {
+                            setTransparent();
                             unitctrl.LiftOffUnit();
-                        selectedUnit = null;                        
+                        }
+                        selectedUnit = null;
                     }
                     else
                     {
@@ -134,7 +158,10 @@ public class GameSceneScript : MonoBehaviour
                         if (_unitctrl != null)
                         {
                             if (unitctrl != null)
+                            {
+                                setTransparent();
                                 unitctrl.LiftOffUnit();
+                            }
 
                             _unitctrl.LiftUnit();
                             selectedUnit = clickedObject;                            
@@ -146,9 +173,12 @@ public class GameSceneScript : MonoBehaviour
                             {
                                 Vector2Int index = cursorctrl.getIndex();                                
                                 selectedUnit = null;
-                                unitctrl.MoveUnit(getPosition(index.x, index.y));
+                                setTransparent();
+
+                                unitctrl.MoveUnit(getPosition(index.x, index.y), index);
+                                cursorctrl.setUnit();
                             }
-                        }                    
+                        }
                     }
                 }
             }
@@ -160,5 +190,16 @@ public class GameSceneScript : MonoBehaviour
         float x = (row - boardWidth / 2) * tileWidth;
         float z = (file - boardHeight / 2) * tileHeight;
         return new Vector3(x, 0, z);
+    }
+    private void setTransparent()
+    {
+        for (int i = 0; i < boardWidth; i++)
+        {
+            for (int j = 0; j < boardHeight; j++)
+            {
+                Renderer renderer = cursors[i, j].GetComponent<Renderer>();
+                renderer.material = transparentMaterial;
+            }
+        }
     }
 }
