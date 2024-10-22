@@ -37,24 +37,29 @@ public class UnitController : MonoBehaviour
     private UnitType _unitType;
     private FieldStatus _fieldStatus;
 
+    private int tile_row;
+    private int tile_file;
+
     private const float liftHeight = 0.7f;
 
     private Vector2Int _position;
     private Vector2Int _oldPosition;
 
-    public void InitUnit(int player, int unittype, Vector3 pos, Vector2Int tile_index)
+    public void InitUnit(int player, int unittype, Vector3 pos, Vector2Int tile_index, int row, int file)
     {
         this._player = player;
         this._unitType = (UnitType)unittype;
         this._fieldStatus = FieldStatus.OnBoard;
         this._position = tile_index;
+        this.tile_row = row;
+        this.tile_file = file;
 
         transform.eulerAngles = getAngles(player);
     }
 
     public Vector3 getAngles(int player)
     {
-        return new Vector3(270, player * 180, 0);
+        return new Vector3(270, (player + 1) * 180, 0);
     }
 
     public void LiftUnit()
@@ -87,174 +92,243 @@ public class UnitController : MonoBehaviour
             rigidbody.useGravity = true;
     }
 
-    public List<Vector2Int> getMovableTiles(CursorController[,] cursors, UnitType unittype)
+    public List<Vector2Int> getMovableTiles(List<Vector2Int> units, UnitType unittype)
     {
         List<Vector2Int> list = new List<Vector2Int>();
-        int rows = cursors.GetLength(0) / 2;
-        int files = cursors.GetLength(1) / 2;
+        Vector2Int target;
+
+        int player_adjust = (_player == 0) ? 1 : -1;
 
         switch (unittype)
         {
             case UnitType.Sui:
                 {
-                    for (int i = -1; i <= 1; i++)
-                    {
-                        for (int j = -1; j <= 1; j++)
-                        {
-                            if (i == 0 && j == 0) continue;
-                            list.Add(new Vector2Int(i, j));
-                        }
-                    }
+                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(-1, -1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, -1) * player_adjust);
                     break;
                 }
             case UnitType.Taishou:
                 {
-                    for (int i = -1; i <= 1; i++)
+                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(-1, -1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, -1) * player_adjust);
+
+                    for(int i = 1; i < tile_row; i++)
                     {
-                        for (int j = -1; j <= 1; j++)
-                        {
-                            if (i == 0 && j == 0) continue;
-                            if (Math.Abs(i) != Math.Abs(j)) continue;
-                            list.Add(new Vector2Int(i, j));
-                        }
+                        addAreaInside(list, new Vector2Int(i, 0) * player_adjust);
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (units.Contains(target))
+                            break;                        
                     }
-
-                    for (int i = -rows*2; i <= rows*2; i++)
+                    for(int i = -1; i > -tile_row; i--)
                     {
-                        if(i == 0) continue;
-                        list.Add(new Vector2Int(i, 0));
-                    }                        
-
-                    for (int j = -files*2; j <= files*2; j++)
+                        addAreaInside(list, new Vector2Int(i, 0) * player_adjust);
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for(int i = 1; i < tile_file; i++)
                     {
-                        if(j == 0) continue;
-                        list.Add(new Vector2Int(0, j));
-                    }                        
+                        addAreaInside(list, new Vector2Int(0, i) * player_adjust);
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for(int i = -1; i > -tile_file; i--)
+                    {
+                        addAreaInside(list, new Vector2Int(0, i) * player_adjust);
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
                     break;
                 }                
             case UnitType.Chuujou:
                 {
-                    for (int i = -1; i <= 1; i++)
-                    {
-                        for (int j = -1; j <= 1; j++)
-                        {
-                            if (i == 0 && j == 0) continue;
-                            if (i == j) continue;
-                            list.Add(new Vector2Int(i, j));
-                        }
-                    }
+                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust);
 
-                    for (int i = -rows*2; i <= rows*2; i++)
-                        for(int j = -files*2; j <= files*2; j++)
-                        {
-                            if (i == 0 && j == 0) continue;
-                            if (Math.Abs(i) == Math.Abs(j))
-                                list.Add(new Vector2Int(i, j));
-                        }
+                    int max = (tile_row < tile_file) ? tile_row : tile_file;
+                    for (int i = 1; i < max; i++)
+                    {
+                        addAreaInside(list, new Vector2Int(i, i) * player_adjust);
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        addAreaInside(list, new Vector2Int(i, -i) * player_adjust);
+                        target = _position + new Vector2Int(i, -i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        addAreaInside(list, new Vector2Int(-i, i) * player_adjust);
+                        target = _position + new Vector2Int(-i, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for (int i = -1; i > max; i--)
+                    {
+                        addAreaInside(list, new Vector2Int(i, i) * player_adjust);
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
 
                     break;
                 }
             case UnitType.Shoushou:
-                {
-                    for(int i = -1; i <= 1;  i++)
-                    {
-                        for(int j = 0; j <= 1; j++)
-                        {
-                            if (i == 0 && j == 0) continue;
-                            list.Add(new Vector2Int(i, j));
-                        }
-                    }
-                    list.Add(new Vector2Int(0, -1));
+                {                  
+                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust);
                     break;
                 }
             case UnitType.Samurai:
                 {
-                    list.Add(new Vector2Int(-1, 1));
-                    list.Add(new Vector2Int(0, 1));
-                    list.Add(new Vector2Int(1, 1));
-                    list.Add(new Vector2Int(0, -1));
+                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust);
                     break;
                 }
             case UnitType.Yari:
                 {
-                    list.Add(new Vector2Int(-1, 1));
-                    list.Add(new Vector2Int(0, 1));
-                    list.Add(new Vector2Int(1, 1));
-                    list.Add(new Vector2Int(0, -1));
-                    list.Add(new Vector2Int(0, 2));
+                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust);                    
+                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust);
+
+                    for(int i = 1; i < 3; i++)
+                    {
+                        addAreaInside(list, new Vector2Int(0, i) * player_adjust);
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
                     break;
                 }
             case UnitType.Kiba:
                 {
-                    for (int i = -2; i <= 2; i++)
+                    for (int i = 1; i < 3; i++)
                     {
-                        if (i == 0) continue;
-                        list.Add(new Vector2Int(i, 0));
+                        addAreaInside(list, new Vector2Int(i, 0) * player_adjust);
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (units.Contains(target))
+                            break;
                     }
-
-                    for (int j = -2; j <= 2; j++)
+                    for (int i = -1; i > -3; i--)
                     {
-                        if (j == 0) continue;
-                        list.Add(new Vector2Int(0, j));
+                        addAreaInside(list, new Vector2Int(i, 0) * player_adjust);
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for (int i = 1; i < 3; i++)
+                    {
+                        addAreaInside(list, new Vector2Int(0, i) * player_adjust);
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for (int i = -1; i > -3; i--)
+                    {
+                        addAreaInside(list, new Vector2Int(0, i) * player_adjust);
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
                     }
                     break;
                 }
             case UnitType.Shinobi:
                 {
-                    for (int i = -2; i <= 2; i++)
+                    for (int i = 1; i < 3; i++)
                     {
-                        for (int j = -2; j <= 2; j++)
-                        {
-                            if (i == 0 && j == 0) continue;
-                            if (Math.Abs(i) != Math.Abs(j)) continue;
-                            list.Add(new Vector2Int(i, j));
-                        }
+                        addAreaInside(list, new Vector2Int(i, i) * player_adjust);
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for (int i = 1; i < 3; i++)
+                    {
+                        addAreaInside(list, new Vector2Int(i, -i) * player_adjust);
+                        target = _position + new Vector2Int(i, -i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for (int i = 1; i < 3; i++)
+                    {
+                        addAreaInside(list, new Vector2Int(-i, i) * player_adjust);
+                        target = _position + new Vector2Int(-i, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
+                    }
+                    for (int i = -1; i > -3; i--)
+                    {
+                        addAreaInside(list, new Vector2Int(i, i) * player_adjust);
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (units.Contains(target))
+                            break;
                     }
                     break;
                 }
             case UnitType.Toride:
                 {
-                    list.Add(new Vector2Int(0, 1));
-                    list.Add(new Vector2Int(-1, 0));
-                    list.Add(new Vector2Int(1, 0));
-                    list.Add(new Vector2Int(-1, -1));
-                    list.Add(new Vector2Int(1, -1));
+                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(-1, -1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, -1) * player_adjust);
                     break;
                 }
             case UnitType.Hyou:
                 {
-                    list.Add(new Vector2Int(0, 1));
-                    list.Add(new Vector2Int(0, -1));
+                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust);
                 }
                 break;
             case UnitType.Oodzutsu:
                 {
-                    list.Add(new Vector2Int(-1, 0));
-                    list.Add(new Vector2Int(1, 0));
-                    list.Add(new Vector2Int(0, -1));
-                    list.Add(new Vector2Int(0, 3));
+                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, 3) * player_adjust);
                     break;
                 }
             case UnitType.Yumi:
                 {
-                    list.Add(new Vector2Int(0, -1));
-                    list.Add(new Vector2Int(-1, 2));
-                    list.Add(new Vector2Int(0, 2));
-                    list.Add(new Vector2Int(1, 2));
+                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(-1, 2) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, 2) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 2) * player_adjust);
                     break;
                 }
             case UnitType.Tsutsu:
                 {
-                    list.Add(new Vector2Int(-1, -1));
-                    list.Add(new Vector2Int(1, -1));
-                    list.Add(new Vector2Int(0, 2));
+                    addAreaInside(list, new Vector2Int(-1, -1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, -1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, 2) * player_adjust);
                     break;
                 }
             case UnitType.Boushou:
                 {
-                    list.Add(new Vector2Int(-1, 1));
-                    list.Add(new Vector2Int(1, 1));
-                    list.Add(new Vector2Int(0, -1));
+                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust);
+                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust);
                     break;
                 }
         }
@@ -268,5 +342,12 @@ public class UnitController : MonoBehaviour
     public Vector2Int getIndex()
     {
         return this._position;
+    }
+    
+    private void addAreaInside(List<Vector2Int> list, Vector2Int index)
+    {
+        Vector2Int target = _position + index;
+        if(target.x >= 0 && target.x < tile_row && target.y >= 0 && target.y < tile_file)
+            list.Add(target);        
     }
 }

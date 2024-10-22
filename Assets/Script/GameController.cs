@@ -39,6 +39,7 @@ public class GameSceneScript : MonoBehaviour
 
     private GameObject selectedUnit = null;
     private GameObject selectedCursor = null;
+    private List<Vector2Int> selectedUnitMovable = null;
 
     // Start is called before the first frame update
     void Start()
@@ -71,13 +72,13 @@ public class GameSceneScript : MonoBehaviour
                 else if (type > 0)
                 {
                     prefabUnit = blackUnits[type-1];
-                    player = 1;
+                    player = 0;
                 }
                 else
                 {
                     type *= -1;
                     prefabUnit = whiteUnits[type-1];
-                    player = 0;
+                    player = 1;
                 }
                 
                 GameObject unit = Instantiate(prefabUnit, pos, Quaternion.Euler(0, 0, 0));                
@@ -95,9 +96,7 @@ public class GameSceneScript : MonoBehaviour
                 collider.center = new Vector3(0f, 0f, 0.002f);
 
                 UnitController unitctrl = unit.AddComponent<UnitController>();
-                unitctrl.InitUnit(player, type-1, pos, new Vector2Int(i, j));
-
-                cursorctrl.setUnit();
+                unitctrl.InitUnit(player, type-1, pos, new Vector2Int(i, j), boardWidth, boardHeight);
 
                 units[i, j] = unitctrl;
                 cursors[i, j] = cursorctrl;
@@ -122,20 +121,13 @@ public class GameSceneScript : MonoBehaviour
                     selectedUnit = clickedObject;
                     UnitController unitctrl = clickedObject.GetComponent<UnitController>();
                     if (unitctrl != null)
-                    {
+                    {                        
                         unitctrl.LiftUnit();
-                        List<Vector2Int> list = unitctrl.getMovableTiles(cursors, unitctrl.getUnitType());
-                        foreach (var index in list)
+                        selectedUnitMovable = unitctrl.getMovableTiles(getPositions(), unitctrl.getUnitType());
+                        foreach (var index in selectedUnitMovable)
                         {
-                            Vector2Int unitIndex = unitctrl.getIndex();
-                            Vector2Int cursor_index = index + unitIndex;
-                            cursors[unitIndex.x, unitIndex.y].clearUnit();
-
-                            if (cursor_index.x >= 0 && cursor_index.x < boardWidth && cursor_index.y >= 0 && cursor_index.y < boardHeight)
-                            {
-                                Renderer renderer = cursors[cursor_index.x, cursor_index.y].GetComponent<Renderer>();                                
-                                renderer.material = cursorMaterial;
-                            }
+                            Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
+                            renderer.material = cursorMaterial;
                         }
                     }                                      
                 }
@@ -151,6 +143,7 @@ public class GameSceneScript : MonoBehaviour
                             unitctrl.LiftOffUnit();
                         }
                         selectedUnit = null;
+                        selectedUnitMovable = null;
                     }
                     else
                     {
@@ -164,19 +157,28 @@ public class GameSceneScript : MonoBehaviour
                             }
 
                             _unitctrl.LiftUnit();
-                            selectedUnit = clickedObject;                            
+                            selectedUnit = clickedObject;
+                            selectedUnitMovable = _unitctrl.getMovableTiles(getPositions(), _unitctrl.getUnitType());
+                            foreach (var index in selectedUnitMovable)
+                            {
+                                Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
+                                renderer.material = cursorMaterial;
+                            }
                         }
                         else
                         {
                             CursorController cursorctrl = clickedObject.GetComponent<CursorController>();                            
                             if (cursorctrl != null)
                             {
-                                Vector2Int index = cursorctrl.getIndex();                                
-                                selectedUnit = null;
-                                setTransparent();
+                                Vector2Int index = cursorctrl.getIndex();
+                                if (selectedUnitMovable.Contains(index))
+                                {
+                                    selectedUnit = null;
+                                    selectedUnitMovable = null;
+                                    setTransparent();
 
-                                unitctrl.MoveUnit(getPosition(index.x, index.y), index);
-                                cursorctrl.setUnit();
+                                    unitctrl.MoveUnit(getPosition(index.x, index.y), index);
+                                }                                
                             }
                         }
                     }
@@ -201,5 +203,21 @@ public class GameSceneScript : MonoBehaviour
                 renderer.material = transparentMaterial;
             }
         }
+    }
+
+    private List<Vector2Int> getPositions()
+    {
+        List<Vector2Int> list = new List<Vector2Int>();
+        for(int i = 0; i < boardWidth; i++)
+        {
+            for(int j = 0; j < boardHeight; j++)
+            {
+                UnitController _unit = units[i, j];
+                if (_unit != null)
+                    list.Add(units[i, j].getIndex());
+            }
+        }
+
+        return list;
     }
 }
