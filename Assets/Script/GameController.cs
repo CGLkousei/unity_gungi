@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class GameSceneScript : MonoBehaviour
 {
@@ -12,6 +11,8 @@ public class GameSceneScript : MonoBehaviour
     [SerializeField] List<GameObject> blackUnits;
     [SerializeField] Material transparentMaterial;
     [SerializeField] Material cursorMaterial;
+    [SerializeField] Button tukeBtn;
+    [SerializeField] Button toruBtn;
 
     //Default set;
     int[,] boardSetting =
@@ -44,6 +45,9 @@ public class GameSceneScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tukeBtn.onClick.AddListener(() => onClickedBtn(tukeBtn));
+        toruBtn.onClick.AddListener(() => onClickedBtn(toruBtn));        
+
         cursors = new CursorController[boardWidth, boardHeight];
         units = new UnitController[boardWidth, boardHeight];
 
@@ -219,5 +223,21 @@ public class GameSceneScript : MonoBehaviour
         }
 
         return list;
+    }
+
+    private int onClickedBtn(Button button)
+    {
+        if (button == tukeBtn)
+        {
+            Debug.Log(0);
+            return 0;
+        }
+        else if (button == toruBtn)
+        {
+            Debug.Log(1);
+            return 1;
+        }
+
+        return -1;
     }
 }
