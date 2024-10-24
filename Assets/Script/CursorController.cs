@@ -6,8 +6,7 @@ public class CursorController : MonoBehaviour
 {    
     private Vector2Int index;
     private float cursorHight = 0.05f;
-    private bool movable;
-    
+    private bool movable;    
 
     // Start is called before the first frame update
     void Start()

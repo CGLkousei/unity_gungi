@@ -1,18 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameSceneScript : MonoBehaviour
 {
     [SerializeField] GameObject prefabTile;
-    [SerializeField] GameObject prefabCursor;
+    [SerializeField] GameObject prefabCursor;    
     [SerializeField] List<GameObject> whiteUnits;
     [SerializeField] List<GameObject> blackUnits;
     [SerializeField] Material transparentMaterial;
     [SerializeField] Material cursorMaterial;
     [SerializeField] Button tukeBtn;
     [SerializeField] Button toruBtn;
+    [SerializeField] Button cancelBtn;
+
 
     //Default set;
     int[,] boardSetting =
@@ -29,6 +33,7 @@ public class GameSceneScript : MonoBehaviour
     };
 
     const int playerMax = 2;
+    const int maxStage = 2;
     const int boardWidth = 9;
     const int boardHeight = 9;
 
@@ -40,13 +45,19 @@ public class GameSceneScript : MonoBehaviour
 
     private GameObject selectedUnit = null;
     private GameObject selectedCursor = null;
+    private GameObject clickedObject = null;
     private List<Vector2Int> selectedUnitMovable = null;
+
+    private bool clickedBtnFlag = false;
+    private int checkBtn = -1;
+    private int nowPlayer = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         tukeBtn.onClick.AddListener(() => onClickedBtn(tukeBtn));
-        toruBtn.onClick.AddListener(() => onClickedBtn(toruBtn));        
+        toruBtn.onClick.AddListener(() => onClickedBtn(toruBtn));
+        cancelBtn.onClick.AddListener(() => onClickedBtn(cancelBtn));
 
         cursors = new CursorController[boardWidth, boardHeight];
         units = new UnitController[boardWidth, boardHeight];
@@ -92,7 +103,8 @@ public class GameSceneScript : MonoBehaviour
                 unit.transform.localScale = newScale;
 
                 Rigidbody rigidbody = unit.AddComponent<Rigidbody>();
-                rigidbody.mass = 1e3f;
+                rigidbody.mass = 10f;
+                rigidbody.drag = 10f;
                 rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
                 BoxCollider collider = unit.AddComponent<BoxCollider>();
@@ -100,7 +112,7 @@ public class GameSceneScript : MonoBehaviour
                 collider.center = new Vector3(0f, 0f, 0.002f);
 
                 UnitController unitctrl = unit.AddComponent<UnitController>();
-                unitctrl.InitUnit(player, type-1, pos, new Vector2Int(i, j), boardWidth, boardHeight);
+                unitctrl.InitUnit(player, type-1, new Vector2Int(i, j), boardWidth, boardHeight, maxStage);
 
                 units[i, j] = unitctrl;
                 cursors[i, j] = cursorctrl;
@@ -111,28 +123,80 @@ public class GameSceneScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (clickedBtnFlag)
+        {
+            if (checkBtn == 0)
+            {                
+                UnitController bottomStageUnit = clickedObject.GetComponent<UnitController>();
+                UnitController upStageUnit = selectedUnit.GetComponent<UnitController>();
+
+                Rigidbody firstRigid = bottomStageUnit.GetComponent<Rigidbody>();
+                firstRigid.isKinematic = false;
+                upStageUnit.setStatus(upStageUnit.getFieldStatus() + 1);
+
+                Vector2Int index = bottomStageUnit.getIndex();
+                upStageUnit.MoveUnit(getPosition(index.x, index.y), index);
+                if (changePlayer())
+                    Debug.Log("Player" + nowPlayer + " win");
+
+                firstRigid.isKinematic = true;
+
+                selectedUnit = null;
+                selectedUnitMovable = null;
+                setTransparent();
+            }
+            else if (checkBtn == 1)
+            {
+                UnitController targetUnitctrl = clickedObject.GetComponent<UnitController>();
+                UnitController attackUnitctrl = selectedUnit.GetComponent<UnitController>();                           
+
+                attackUnitctrl.setStatus(1);
+                Vector2Int index = targetUnitctrl.getIndex();
+                attackUnitctrl.MoveUnit(getPosition(index.x, index.y), index);
+                if (changePlayer())
+                    Debug.Log("Player" + nowPlayer + " win");
+
+                selectedUnit = null;
+                selectedUnitMovable = null;
+                setTransparent();
+
+                Destroy(targetUnitctrl.gameObject);
+            }
+            
+            tukeBtn.gameObject.SetActive(false);
+            toruBtn.gameObject.SetActive(false);
+            cancelBtn.gameObject.SetActive(false);
+
+            checkBtn = -1;
+            clickedBtnFlag = false;
+        }
+        else if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
             {
-                GameObject clickedObject = hit.collider.gameObject;                
+                clickedObject = hit.collider.gameObject;                
 
                 if (selectedUnit == null)
                 {
                     selectedUnit = clickedObject;
                     UnitController unitctrl = clickedObject.GetComponent<UnitController>();
                     if (unitctrl != null)
-                    {                        
-                        unitctrl.LiftUnit();
-                        selectedUnitMovable = unitctrl.getMovableTiles(getPositions(), unitctrl.getUnitType());
-                        foreach (var index in selectedUnitMovable)
-                        {
-                            Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
-                            renderer.material = cursorMaterial;
+                    {
+                        if (unitctrl.getPlayer() == nowPlayer)
+                        {                            
+                            unitctrl.LiftUnit();
+                            selectedUnitMovable = unitctrl.getMovableTiles(getPositions(), unitctrl.getUnitType());
+                            foreach (var index in selectedUnitMovable)
+                            {
+                                Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
+                                renderer.material = cursorMaterial;
+                            }
                         }
+                        else                        
+                            selectedUnit = null;                        
                     }                                      
                 }
                 else
@@ -153,21 +217,9 @@ public class GameSceneScript : MonoBehaviour
                     {
                         UnitController _unitctrl = clickedObject.GetComponent<UnitController>();
                         if (_unitctrl != null)
-                        {
-                            if (unitctrl != null)
-                            {
-                                setTransparent();
-                                unitctrl.LiftOffUnit();
-                            }
-
-                            _unitctrl.LiftUnit();
-                            selectedUnit = clickedObject;
-                            selectedUnitMovable = _unitctrl.getMovableTiles(getPositions(), _unitctrl.getUnitType());
-                            foreach (var index in selectedUnitMovable)
-                            {
-                                Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
-                                renderer.material = cursorMaterial;
-                            }
+                        {                            
+                            if (unitctrl != null)                                                            
+                                showBtn(_unitctrl, unitctrl.getPlayer());                                
                         }
                         else
                         {
@@ -182,6 +234,8 @@ public class GameSceneScript : MonoBehaviour
                                     setTransparent();
 
                                     unitctrl.MoveUnit(getPosition(index.x, index.y), index);
+                                    if (changePlayer())
+                                        Debug.Log("Player" + nowPlayer + " win");
                                 }                                
                             }
                         }
@@ -225,19 +279,69 @@ public class GameSceneScript : MonoBehaviour
         return list;
     }
 
-    private int onClickedBtn(Button button)
+    private void onClickedBtn(Button button)
     {
-        if (button == tukeBtn)
+        clickedBtnFlag = true;
+
+        if (button == tukeBtn)        
+            checkBtn = 0;        
+        else if (button == toruBtn)                    
+            checkBtn = 1;          
+        
+    }
+    private void showBtn(UnitController clickedUnit, int selectedPlayer)
+    {   
+        int clickedPlayer = clickedUnit.getPlayer();        
+
+        bool tukeFlag = clickedUnit.getFieldStatus() < maxStage;
+        bool toruFlag = clickedPlayer != selectedPlayer;
+
+        if (tukeFlag || toruFlag)
         {
-            Debug.Log(0);
-            return 0;
+            cancelBtn.gameObject.SetActive(true);
+
+            if (tukeFlag)
+                tukeBtn.gameObject.SetActive(true);
+
+            if(toruFlag)
+                toruBtn.gameObject.SetActive(true);
+        }        
+    }
+
+    private bool changePlayer()
+    {
+        Vector2Int kingIndex = new Vector2Int(-1, -1);
+        for(int i = 0; i < boardWidth; i++)
+        {
+            for(int j = 0; j < boardHeight; j++)
+            {
+                UnitController unitctrl = units[i, j];
+                if (unitctrl == null) continue;
+                if (unitctrl.getPlayer() != nowPlayer) continue;
+
+                if (unitctrl.getUnitType() == UnitType.Sui)
+                {
+                    kingIndex = unitctrl.getIndex();
+                    break;
+                }
+            }
         }
-        else if (button == toruBtn)
+        
+        nowPlayer = (nowPlayer + 1) % 2;
+        for(int i = 0; i < boardWidth; i++)
         {
-            Debug.Log(1);
-            return 1;
+            for(int j = 0; j < boardHeight; j++)
+            {
+                UnitController unitctrl = units[i, j];
+                if (unitctrl == null) continue;
+                if (unitctrl.getPlayer() != nowPlayer) continue;
+
+                List<Vector2Int> area = unitctrl.getMovableTiles(getPositions(), unitctrl.getUnitType());
+                if (area.Contains(kingIndex))
+                    return true;
+            }
         }
 
-        return -1;
+        return false;
     }
 }
