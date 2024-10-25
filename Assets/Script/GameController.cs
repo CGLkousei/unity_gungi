@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class GameSceneScript : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class GameSceneScript : MonoBehaviour
     [SerializeField] Button tukeBtn;
     [SerializeField] Button toruBtn;
     [SerializeField] Button cancelBtn;
-
+    [SerializeField] TextMeshProUGUI turnText;
 
     //Default set;
     int[,] boardSetting =
@@ -65,6 +66,9 @@ public class GameSceneScript : MonoBehaviour
         Vector3 tileScale = prefabTile.transform.localScale;
         tileWidth = tileScale.x;
         tileHeight = tileScale.z;
+
+        turnText.color = Color.black;
+        turnText.text = "黒のターンです";
 
         for (int i = 0; i < boardWidth; i++)
         {
@@ -328,7 +332,18 @@ public class GameSceneScript : MonoBehaviour
         }
         
         nowPlayer = (nowPlayer + 1) % 2;
-        for(int i = 0; i < boardWidth; i++)
+        if (nowPlayer == 0)
+        {
+            turnText.color = Color.black;
+            turnText.text = "黒のターンです";
+        }
+        else if (nowPlayer == 1)
+        {
+            turnText.color = Color.white;
+            turnText.text = "白のターンです";
+        }
+
+        for (int i = 0; i < boardWidth; i++)
         {
             for(int j = 0; j < boardHeight; j++)
             {
