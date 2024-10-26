@@ -6,7 +6,8 @@ public class CursorController : MonoBehaviour
 {    
     private Vector2Int index;
     private float cursorHight = 0.05f;
-    private bool movable;    
+    private int onUnitCount;
+    private bool isTuke;
 
     // Start is called before the first frame update
     void Start()
@@ -20,26 +21,23 @@ public class CursorController : MonoBehaviour
         
     }
 
-    public void InitCursor(int row, int file, Vector3 position)
+    public void InitCursor(int row, int file, Vector3 position, int onUnitCount)
     {
         Vector3 pos = position;
         pos.y += cursorHight;
         transform.position = pos;
         index = new Vector2Int(row, file);
-        this.movable = false;
+        this.onUnitCount = onUnitCount;
     }
-
-    public void setMovable()
-    {
-        this.movable = true;
-    }
-    public void clearUnit()
-    {
-        this.movable = false;
-    }
-
     public Vector2Int getIndex()
     {
         return index;
     }
+    public void setOnUnitCount(int onunit) {
+        if (onUnitCount < 0)
+            this.onUnitCount = 0;
+        else
+            this.onUnitCount = onunit;
+    }
+    public int getOnUnitCount() { return onUnitCount; }
 }
