@@ -150,6 +150,7 @@ public class GameSceneScript : MonoBehaviour
                         {
                             attackBottomUnit.SetOnUnit(false);
                             upStageUnit.changeUnitType();
+                            upStageUnit.setStatus(1);
                         }
                     }
 
@@ -342,6 +343,15 @@ public class GameSceneScript : MonoBehaviour
                                         unitctrl.MoveUnit(getPosition(cursorIndex.x, cursorIndex.y), cursorIndex);
                                         if (changePlayer())
                                             finishFlag = true;
+                                    }
+                                    else if (cursorIndex == unitctrl.getIndex())
+                                    {
+                                        if(unitctrl != null) {                             
+                                            setTransparent();
+                                            unitctrl.LiftOffUnit();
+                                        }
+                                        selectedUnit = null;
+                                        selectedUnitMovable = null;
                                     }
                                 }
                             }
