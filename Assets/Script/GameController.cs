@@ -19,6 +19,7 @@ public class GameSceneScript : MonoBehaviour
     [SerializeField] Button toruBtn;
     [SerializeField] Button cancelBtn;
     [SerializeField] TextMeshProUGUI turnText;
+    [SerializeField] Canvas FinishCanvas;    
 
     //Default set;
     int[,] boardSetting =
@@ -50,7 +51,8 @@ public class GameSceneScript : MonoBehaviour
     private GameObject clickedObject = null;
     private List<Vector2Int> selectedUnitMovable = null;
 
-    private bool clickedBtnFlag = false;
+    private bool clickedBtnFlag;
+    private bool finishFlag;
     private int checkBtn = -1;
     private int nowPlayer = 0;
 
@@ -70,6 +72,9 @@ public class GameSceneScript : MonoBehaviour
 
         turnText.color = Color.black;
         turnText.text = "çïÇÃÉ^Å[ÉìÇ≈Ç∑";
+
+        clickedBtnFlag = false;
+        finishFlag = false;
 
         for (int i = 0; i < boardWidth; i++)
         {
@@ -129,217 +134,247 @@ public class GameSceneScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (clickedBtnFlag)
-        {
-            if (checkBtn == 0)
-            {                
-                UnitController bottomStageUnit = clickedObject.GetComponent<UnitController>();
-                UnitController upStageUnit = selectedUnit.GetComponent<UnitController>();
-
-                if (upStageUnit.getFieldStatus() > 1)
-                {
-                    UnitController attackBottomUnit = getUnitSameTile(units, upStageUnit);
-                    if (attackBottomUnit != null)
-                    {
-                        attackBottomUnit.SetOnUnit(false);
-                        upStageUnit.changeUnitType();
-                    }
-                }
-
-                Rigidbody firstRigid = bottomStageUnit.GetComponent<Rigidbody>();
-                firstRigid.isKinematic = false;
-                upStageUnit.setStatus(upStageUnit.getFieldStatus() + 1);
-
-                Vector2Int destinationIndex = bottomStageUnit.getIndex();
-                Vector2Int departureIndex = upStageUnit.getIndex();
-                upStageUnit.MoveUnit(getPosition(destinationIndex.x, destinationIndex.y), destinationIndex);
-                if (changePlayer())
-                    Debug.Log("Player" + nowPlayer + " win");
-
-                firstRigid.isKinematic = true;
-
-                upStageUnit.changeUnitType();
-                bottomStageUnit.SetOnUnit(true);
-                cursors[departureIndex.x, departureIndex.y].setOnUnitCount(cursors[departureIndex.x, departureIndex.y].getOnUnitCount() - 1);
-                cursors[destinationIndex.x, destinationIndex.y].setOnUnitCount(cursors[destinationIndex.x, destinationIndex.y].getOnUnitCount() + 1);
-
-                selectedUnit = null;
-                selectedUnitMovable = null;
-                setTransparent();
-            }
-            else if (checkBtn == 1)
+        if (!finishFlag) 
+        { 
+            if (clickedBtnFlag)
             {
-                UnitController targetUnitctrl = clickedObject.GetComponent<UnitController>();
-                UnitController attackUnitctrl = selectedUnit.GetComponent<UnitController>();
-                UnitController targetBottomUnit = getUnitSameTile(units, targetUnitctrl);                
-
-                Vector2Int targetIndex = targetUnitctrl.getIndex();
-                Vector2Int attackIndex = attackUnitctrl.getIndex();
-                Destroy(targetUnitctrl.gameObject);
-
-                if (attackUnitctrl.getFieldStatus() > 1)
+                if (checkBtn == 0)
                 {
-                    UnitController attackBottomUnit = getUnitSameTile(units, attackUnitctrl);
-                    if (attackBottomUnit != null)
+                    UnitController bottomStageUnit = clickedObject.GetComponent<UnitController>();
+                    UnitController upStageUnit = selectedUnit.GetComponent<UnitController>();
+
+                    if (upStageUnit.getFieldStatus() > 1)
                     {
-                        attackBottomUnit.SetOnUnit(false);
-                        attackUnitctrl.changeUnitType();
-                    }
-                }
-
-                if (targetBottomUnit != null)
-                {
-                    if (targetUnitctrl.getPlayer() == targetBottomUnit.getPlayer())
-                    {
-                        attackUnitctrl.MoveUnit(getPosition(targetIndex.x, targetIndex.y), targetIndex);
-                        if (changePlayer())
-                            Debug.Log("Player" + nowPlayer + " win");
-
-                        Destroy(targetBottomUnit.gameObject);
-                        attackUnitctrl.setStatus(1);
-
-                        cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);
-                        cursors[targetIndex.x, targetIndex.y].setOnUnitCount(1);
-                    }
-                    else
-                    {
-                        Rigidbody bottomRigid = targetBottomUnit.GetComponent<Rigidbody>();
-                        bottomRigid.isKinematic = false;
-
-                        attackUnitctrl.MoveUnit(getPosition(targetIndex.x, targetIndex.y), targetIndex);
-                        if (changePlayer())
-                            Debug.Log("Player" + nowPlayer + " win");
-
-                        bottomRigid.isKinematic = true;
-
-                        attackUnitctrl.changeUnitType();
-                        targetBottomUnit.SetOnUnit(true);
-                        attackUnitctrl.changeUnitType();
-                        cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);
-                    }
-                }
-                else
-                {
-                    attackUnitctrl.MoveUnit(getPosition(targetIndex.x, targetIndex.y), targetIndex);
-                    if (changePlayer())
-                        Debug.Log("Player" + nowPlayer + " win");
-
-                    attackUnitctrl.setStatus(1);
-                    cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);
-                    cursors[targetIndex.x, targetIndex.y].setOnUnitCount(1);
-                }                                                
-
-                selectedUnit = null;
-                selectedUnitMovable = null;
-                setTransparent();                               
-            }
-            
-            tukeBtn.gameObject.SetActive(false);
-            toruBtn.gameObject.SetActive(false);
-            cancelBtn.gameObject.SetActive(false);
-
-            checkBtn = -1;
-            clickedBtnFlag = false;
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                clickedObject = hit.collider.gameObject;                
-
-                if (selectedUnit == null)
-                {                    
-                    UnitController unitctrl = clickedObject.GetComponent<UnitController>();                    
-                    if (unitctrl != null)
-                    {
-                        if (!unitctrl.isOnUnit())
+                        UnitController attackBottomUnit = getUnitSameTile(units, upStageUnit);
+                        if (attackBottomUnit != null)
                         {
-                            if (unitctrl.getPlayer() == nowPlayer)
-                            {
-                                selectedUnit = clickedObject;
-                                unitctrl.LiftUnit();
-                                selectedUnitMovable = unitctrl.getMovableTiles(units, cursors);
-                                foreach (var index in selectedUnitMovable)
-                                {
-                                    Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
-                                    renderer.material = cursorMaterial;
-                                }
-                            }
-                            else
-                                selectedUnit = null;
-                        }                                               
-                    }                                      
-                }
-                else
-                {
-                    UnitController unitctrl = selectedUnit.GetComponent<UnitController>();                                                            
-
-                    if (selectedUnit == clickedObject)
-                    {
-                        if (unitctrl != null)
-                        {
-                            setTransparent();
-                            unitctrl.LiftOffUnit();
+                            attackBottomUnit.SetOnUnit(false);
+                            upStageUnit.changeUnitType();
                         }
-                        selectedUnit = null;
-                        selectedUnitMovable = null;
                     }
-                    else
+
+                    Rigidbody firstRigid = bottomStageUnit.GetComponent<Rigidbody>();
+                    firstRigid.isKinematic = false;
+                    upStageUnit.setStatus(upStageUnit.getFieldStatus() + 1);
+
+                    Vector2Int destinationIndex = bottomStageUnit.getIndex();
+                    Vector2Int departureIndex = upStageUnit.getIndex();
+                    upStageUnit.MoveUnit(getPosition(destinationIndex.x, destinationIndex.y), destinationIndex);
+                    if (changePlayer())
+                        finishFlag = true;
+
+                    firstRigid.isKinematic = true;
+
+                    upStageUnit.changeUnitType();
+                    bottomStageUnit.SetOnUnit(true);
+                    cursors[departureIndex.x, departureIndex.y].setOnUnitCount(cursors[departureIndex.x, departureIndex.y].getOnUnitCount() - 1);
+                    cursors[destinationIndex.x, destinationIndex.y].setOnUnitCount(cursors[destinationIndex.x, destinationIndex.y].getOnUnitCount() + 1);
+
+                    selectedUnit = null;
+                    selectedUnitMovable = null;
+                    setTransparent();
+                }
+                else if (checkBtn == 1)
+                {
+                    UnitController targetUnitctrl = clickedObject.GetComponent<UnitController>();
+                    UnitController attackUnitctrl = selectedUnit.GetComponent<UnitController>();
+                    UnitController targetBottomUnit = getUnitSameTile(units, targetUnitctrl);
+
+                    Vector2Int targetIndex = targetUnitctrl.getIndex();
+                    Vector2Int attackIndex = attackUnitctrl.getIndex();
+                    Destroy(targetUnitctrl.gameObject);
+
+                    if (attackUnitctrl.getFieldStatus() > 1)
                     {
-                        UnitController _unitctrl = clickedObject.GetComponent<UnitController>();
-                        if (_unitctrl != null)
+                        UnitController attackBottomUnit = getUnitSameTile(units, attackUnitctrl);
+                        if (attackBottomUnit != null)
                         {
-                            if (unitctrl != null)
-                            {
-                                if (!_unitctrl.isOnUnit())
-                                {
-                                    Vector2Int unitIndex = _unitctrl.getIndex();
-                                    if (selectedUnitMovable.Contains(unitIndex))
-                                    {
-                                        showBtn(_unitctrl, unitctrl.getPlayer());
-                                    }
-                                }                                
-                            }
+                            attackBottomUnit.SetOnUnit(false);
+                            attackUnitctrl.changeUnitType();
+                        }
+                    }
+
+                    if (targetBottomUnit != null)
+                    {
+                        if (targetUnitctrl.getPlayer() == targetBottomUnit.getPlayer())
+                        {
+                            attackUnitctrl.MoveUnit(getPosition(targetIndex.x, targetIndex.y), targetIndex);
+                            if (changePlayer())
+                                finishFlag = true;
+
+                            Destroy(targetBottomUnit.gameObject);
+                            attackUnitctrl.setStatus(1);
+
+                            cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);
+                            cursors[targetIndex.x, targetIndex.y].setOnUnitCount(1);
                         }
                         else
                         {
-                            CursorController cursorctrl = clickedObject.GetComponent<CursorController>();
-                            if (cursorctrl != null && selectedUnitMovable != null)
+                            Rigidbody bottomRigid = targetBottomUnit.GetComponent<Rigidbody>();
+                            bottomRigid.isKinematic = false;
+
+                            attackUnitctrl.MoveUnit(getPosition(targetIndex.x, targetIndex.y), targetIndex);
+                            if (changePlayer())
+                                finishFlag = true;
+
+                            bottomRigid.isKinematic = true;
+
+                            attackUnitctrl.changeUnitType();
+                            targetBottomUnit.SetOnUnit(true);
+                            attackUnitctrl.changeUnitType();
+                            cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);
+                        }
+                    }
+                    else
+                    {
+                        attackUnitctrl.MoveUnit(getPosition(targetIndex.x, targetIndex.y), targetIndex);
+                        if (changePlayer())
+                            finishFlag = true;
+
+                        attackUnitctrl.setStatus(1);
+                        cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);
+                        cursors[targetIndex.x, targetIndex.y].setOnUnitCount(1);
+                    }
+
+                    selectedUnit = null;
+                    selectedUnitMovable = null;
+                    setTransparent();
+                }
+
+                tukeBtn.gameObject.SetActive(false);
+                toruBtn.gameObject.SetActive(false);
+                cancelBtn.gameObject.SetActive(false);
+
+                checkBtn = -1;
+                clickedBtnFlag = false;
+            }
+            else if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
+                {
+                    clickedObject = hit.collider.gameObject;
+
+                    if (selectedUnit == null)
+                    {
+                        UnitController unitctrl = clickedObject.GetComponent<UnitController>();
+                        if (unitctrl != null)
+                        {
+                            if (!unitctrl.isOnUnit())
                             {
-                                Vector2Int cursorIndex = cursorctrl.getIndex();                                
-
-                                if (selectedUnitMovable.Contains(cursorIndex))
+                                if (unitctrl.getPlayer() == nowPlayer)
                                 {
-                                    selectedUnit = null;
-                                    selectedUnitMovable = null;
-                                    setTransparent();
-
-                                    if (unitctrl.getFieldStatus() > 1)
+                                    selectedUnit = clickedObject;
+                                    unitctrl.LiftUnit();
+                                    selectedUnitMovable = unitctrl.getMovableTiles(units, cursors);
+                                    foreach (var index in selectedUnitMovable)
                                     {
-                                        UnitController attackBottomUnit = getUnitSameTile(units, unitctrl);
-                                        if (attackBottomUnit != null)
+                                        Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
+                                        renderer.material = cursorMaterial;
+                                    }
+                                }
+                                else
+                                    selectedUnit = null;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        UnitController unitctrl = selectedUnit.GetComponent<UnitController>();
+
+                        if (selectedUnit == clickedObject)
+                        {
+                            if (unitctrl != null)
+                            {
+                                setTransparent();
+                                unitctrl.LiftOffUnit();
+                            }
+                            selectedUnit = null;
+                            selectedUnitMovable = null;
+                        }
+                        else
+                        {
+                            UnitController _unitctrl = clickedObject.GetComponent<UnitController>();
+                            if (_unitctrl != null)
+                            {
+                                if (unitctrl != null)
+                                {
+                                    if (!_unitctrl.isOnUnit())
+                                    {
+                                        Vector2Int unitIndex = _unitctrl.getIndex();
+                                        if (selectedUnitMovable.Contains(unitIndex))
                                         {
-                                            attackBottomUnit.SetOnUnit(false);
-                                            unitctrl.changeUnitType();
+                                            showBtn(_unitctrl, unitctrl.getPlayer());
                                         }
                                     }
+                                }
+                            }
+                            else
+                            {
+                                CursorController cursorctrl = clickedObject.GetComponent<CursorController>();
+                                if (cursorctrl != null && selectedUnitMovable != null)
+                                {
+                                    Vector2Int cursorIndex = cursorctrl.getIndex();
 
-                                    Vector2Int unitIndex = unitctrl.getIndex();
-                                    unitctrl.setStatus(1);
-                                    cursors[unitIndex.x, unitIndex.y].setOnUnitCount(cursors[unitIndex.x, unitIndex.y].getOnUnitCount()-1);
-                                    cursors[cursorIndex.x, cursorIndex.y].setOnUnitCount(cursors[cursorIndex.x, cursorIndex.y].getOnUnitCount() + 1);
+                                    if (selectedUnitMovable.Contains(cursorIndex))
+                                    {
+                                        selectedUnit = null;
+                                        selectedUnitMovable = null;
+                                        setTransparent();
 
-                                    unitctrl.MoveUnit(getPosition(cursorIndex.x, cursorIndex.y), cursorIndex);
-                                    if (changePlayer())
-                                        Debug.Log("Player" + nowPlayer + " win");
+                                        if (unitctrl.getFieldStatus() > 1)
+                                        {
+                                            UnitController attackBottomUnit = getUnitSameTile(units, unitctrl);
+                                            if (attackBottomUnit != null)
+                                            {
+                                                attackBottomUnit.SetOnUnit(false);
+                                                unitctrl.changeUnitType();
+                                            }
+                                        }
+
+                                        Vector2Int unitIndex = unitctrl.getIndex();
+                                        unitctrl.setStatus(1);
+                                        cursors[unitIndex.x, unitIndex.y].setOnUnitCount(cursors[unitIndex.x, unitIndex.y].getOnUnitCount() - 1);
+                                        cursors[cursorIndex.x, cursorIndex.y].setOnUnitCount(cursors[cursorIndex.x, cursorIndex.y].getOnUnitCount() + 1);
+
+                                        unitctrl.MoveUnit(getPosition(cursorIndex.x, cursorIndex.y), cursorIndex);
+                                        if (changePlayer())
+                                            finishFlag = true;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
+        }
+        else
+        {
+            FinishCanvas.gameObject.SetActive(true);
+            for (int i = 0; i < boardWidth; i++)
+            {
+                for (int j = 0; j < boardHeight; j++)
+                {
+                    if (units[i, j] != null)
+                        Destroy(units[i, j]);
+
+                    if (cursors[i, j] != null)
+                        Destroy(cursors[i, j]);
+                }
+            }
+
+            TextMeshProUGUI winnerTxt = FinishCanvas.transform.Find("WinnerText").GetComponent<TextMeshProUGUI>();
+            if (nowPlayer == 0)
+            {
+                turnText.color = Color.black;
+                turnText.text = "çïÇÃèüóòÇ≈Ç∑";
+            }
+            else if (nowPlayer == 1)
+            {
+                turnText.color = Color.white;
+                turnText.text = "îíÇÃèüóòÇ≈Ç∑";
             }
         }
     }

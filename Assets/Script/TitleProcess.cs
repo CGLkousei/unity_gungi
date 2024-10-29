@@ -6,20 +6,27 @@ using UnityEngine.SceneManagement;
 public class TitleProcess : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void StartButton()
     {
         Debug.Log("Start");
         SceneManager.LoadScene("Game");
+    }
+
+    public void restartScene()
+    {
+        Debug.Log("Restart");
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quit");
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit()
+        #endif        
     }
 }

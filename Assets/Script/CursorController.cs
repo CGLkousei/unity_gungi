@@ -9,18 +9,6 @@ public class CursorController : MonoBehaviour
     private int onUnitCount;
     private bool isTuke;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void InitCursor(int row, int file, Vector3 position, int onUnitCount)
     {
         Vector3 pos = position;
