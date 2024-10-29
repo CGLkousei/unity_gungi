@@ -136,6 +136,16 @@ public class GameSceneScript : MonoBehaviour
                 UnitController bottomStageUnit = clickedObject.GetComponent<UnitController>();
                 UnitController upStageUnit = selectedUnit.GetComponent<UnitController>();
 
+                if (upStageUnit.getFieldStatus() > 1)
+                {
+                    UnitController attackBottomUnit = getUnitSameTile(units, upStageUnit);
+                    if (attackBottomUnit != null)
+                    {
+                        attackBottomUnit.SetOnUnit(false);
+                        upStageUnit.changeUnitType();
+                    }
+                }
+
                 Rigidbody firstRigid = bottomStageUnit.GetComponent<Rigidbody>();
                 firstRigid.isKinematic = false;
                 upStageUnit.setStatus(upStageUnit.getFieldStatus() + 1);
@@ -148,6 +158,7 @@ public class GameSceneScript : MonoBehaviour
 
                 firstRigid.isKinematic = true;
 
+                upStageUnit.changeUnitType();
                 bottomStageUnit.SetOnUnit(true);
                 cursors[departureIndex.x, departureIndex.y].setOnUnitCount(cursors[departureIndex.x, departureIndex.y].getOnUnitCount() - 1);
                 cursors[destinationIndex.x, destinationIndex.y].setOnUnitCount(cursors[destinationIndex.x, destinationIndex.y].getOnUnitCount() + 1);
@@ -160,30 +171,25 @@ public class GameSceneScript : MonoBehaviour
             {
                 UnitController targetUnitctrl = clickedObject.GetComponent<UnitController>();
                 UnitController attackUnitctrl = selectedUnit.GetComponent<UnitController>();
-                UnitController targetBottomUnit = null;
-                if (targetUnitctrl.getFieldStatus() >= 2)
-                {
-                    for (int i = 0; i < boardWidth; i++)
-                    {
-                        for (int j = 0; j < boardHeight; j++)
-                        {
-                            UnitController _unit = units[i, j];
-                            if(_unit != null)
-                            {
-                                if((_unit.getIndex()  == targetUnitctrl.getIndex()) && _unit != targetUnitctrl)
-                                    targetBottomUnit = _unit;
-                            }
-                        }
-                    }
-                }
+                UnitController targetBottomUnit = getUnitSameTile(units, targetUnitctrl);                
 
                 Vector2Int targetIndex = targetUnitctrl.getIndex();
                 Vector2Int attackIndex = attackUnitctrl.getIndex();
                 Destroy(targetUnitctrl.gameObject);
 
+                if (attackUnitctrl.getFieldStatus() > 1)
+                {
+                    UnitController attackBottomUnit = getUnitSameTile(units, attackUnitctrl);
+                    if (attackBottomUnit != null)
+                    {
+                        attackBottomUnit.SetOnUnit(false);
+                        attackUnitctrl.changeUnitType();
+                    }
+                }
+
                 if (targetBottomUnit != null)
                 {
-                    if(targetUnitctrl.getPlayer() == targetBottomUnit.getPlayer())
+                    if (targetUnitctrl.getPlayer() == targetBottomUnit.getPlayer())
                     {
                         attackUnitctrl.MoveUnit(getPosition(targetIndex.x, targetIndex.y), targetIndex);
                         if (changePlayer())
@@ -198,7 +204,7 @@ public class GameSceneScript : MonoBehaviour
                     else
                     {
                         Rigidbody bottomRigid = targetBottomUnit.GetComponent<Rigidbody>();
-                        bottomRigid.isKinematic = false;                        
+                        bottomRigid.isKinematic = false;
 
                         attackUnitctrl.MoveUnit(getPosition(targetIndex.x, targetIndex.y), targetIndex);
                         if (changePlayer())
@@ -206,8 +212,10 @@ public class GameSceneScript : MonoBehaviour
 
                         bottomRigid.isKinematic = true;
 
+                        attackUnitctrl.changeUnitType();
                         targetBottomUnit.SetOnUnit(true);
-                        cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);                        
+                        attackUnitctrl.changeUnitType();
+                        cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);
                     }
                 }
                 else
@@ -219,8 +227,8 @@ public class GameSceneScript : MonoBehaviour
                     attackUnitctrl.setStatus(1);
                     cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);
                     cursors[targetIndex.x, targetIndex.y].setOnUnitCount(1);
-                }
-                
+                }                                                
+
                 selectedUnit = null;
                 selectedUnitMovable = null;
                 setTransparent();                               
@@ -244,27 +252,29 @@ public class GameSceneScript : MonoBehaviour
 
                 if (selectedUnit == null)
                 {                    
-                    UnitController unitctrl = clickedObject.GetComponent<UnitController>();
+                    UnitController unitctrl = clickedObject.GetComponent<UnitController>();                    
                     if (unitctrl != null)
                     {
-                        if (unitctrl.getPlayer() == nowPlayer)
+                        if (!unitctrl.isOnUnit())
                         {
-                            selectedUnit = clickedObject;
-                            unitctrl.LiftUnit();
-                            selectedUnitMovable = unitctrl.getMovableTiles(units, cursors);
-                            foreach (var index in selectedUnitMovable)
+                            if (unitctrl.getPlayer() == nowPlayer)
                             {
-                                Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
-                                renderer.material = cursorMaterial;
+                                selectedUnit = clickedObject;
+                                unitctrl.LiftUnit();
+                                selectedUnitMovable = unitctrl.getMovableTiles(units, cursors);
+                                foreach (var index in selectedUnitMovable)
+                                {
+                                    Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
+                                    renderer.material = cursorMaterial;
+                                }
                             }
-                        }
-                        else                        
-                            selectedUnit = null;                        
+                            else
+                                selectedUnit = null;
+                        }                                               
                     }                                      
                 }
                 else
                 {
-                    Debug.Log(selectedUnit.name);
                     UnitController unitctrl = selectedUnit.GetComponent<UnitController>();                                                            
 
                     if (selectedUnit == clickedObject)
@@ -284,14 +294,14 @@ public class GameSceneScript : MonoBehaviour
                         {
                             if (unitctrl != null)
                             {
-                                Vector2Int unitIndex = _unitctrl.getIndex();
-                                Debug.Log(unitIndex.x + ", " + unitIndex.y);
-                                Debug.Log(selectedUnitMovable.Count);
-                                if (selectedUnitMovable.Contains(unitIndex))
+                                if (!_unitctrl.isOnUnit())
                                 {
-                                    Debug.Log("Btn");
-                                    showBtn(_unitctrl, unitctrl.getPlayer());
-                                }
+                                    Vector2Int unitIndex = _unitctrl.getIndex();
+                                    if (selectedUnitMovable.Contains(unitIndex))
+                                    {
+                                        showBtn(_unitctrl, unitctrl.getPlayer());
+                                    }
+                                }                                
                             }
                         }
                         else
@@ -299,7 +309,6 @@ public class GameSceneScript : MonoBehaviour
                             CursorController cursorctrl = clickedObject.GetComponent<CursorController>();
                             if (cursorctrl != null && selectedUnitMovable != null)
                             {
-                                Debug.Log(cursorctrl.getOnUnitCount());
                                 Vector2Int cursorIndex = cursorctrl.getIndex();                                
 
                                 if (selectedUnitMovable.Contains(cursorIndex))
@@ -308,7 +317,18 @@ public class GameSceneScript : MonoBehaviour
                                     selectedUnitMovable = null;
                                     setTransparent();
 
+                                    if (unitctrl.getFieldStatus() > 1)
+                                    {
+                                        UnitController attackBottomUnit = getUnitSameTile(units, unitctrl);
+                                        if (attackBottomUnit != null)
+                                        {
+                                            attackBottomUnit.SetOnUnit(false);
+                                            unitctrl.changeUnitType();
+                                        }
+                                    }
+
                                     Vector2Int unitIndex = unitctrl.getIndex();
+                                    unitctrl.setStatus(1);
                                     cursors[unitIndex.x, unitIndex.y].setOnUnitCount(cursors[unitIndex.x, unitIndex.y].getOnUnitCount()-1);
                                     cursors[cursorIndex.x, cursorIndex.y].setOnUnitCount(cursors[cursorIndex.x, cursorIndex.y].getOnUnitCount() + 1);
 
@@ -418,5 +438,23 @@ public class GameSceneScript : MonoBehaviour
 
         return false;
     }
+    UnitController getUnitSameTile(UnitController[,] units, UnitController u)
+    {
+        UnitController _unit = null;
+        for (int i = 0; i < boardWidth; i++)
+        {
+            for (int j = 0; j < boardHeight; j++)
+            {
+                if (units[i, j] != null)
+                {
+                    if (units[i, j].getIndex() == u.getIndex() && units[i, j] != u)
+                    {
+                        _unit = units[i, j];
+                    }
+                }                
+            }
+        }
 
+        return _unit;
+    }
 }

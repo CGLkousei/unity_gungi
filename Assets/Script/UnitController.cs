@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UIElements.Experimental;
+using System.Linq;
 
 public enum UnitType
 {
@@ -21,18 +22,52 @@ public enum UnitType
     Yumi,
     Tsutsu,
     Boushou,
+    SuiSecond,
+    TaishouSecond,
+    ChuujouSecond,
+    ShoushouSecond,
+    SamuraiSecond,
+    YariSecond,
+    KibaSecond,
+    ShinobiSecond,
+    TorideSecond,
+    HyouSecond,
+    OodzutsuSecond,
+    YumiSecond,
+    TsutsuSecond,
+    BoushouSecond,
 }
 
 public enum FieldStatus
 {
-    None = 0,
+    None = -1,
+    arata,
     OnBoard,
     SecondStage,
     ThirdStage,
 }
 
+
 public class UnitController : MonoBehaviour
 {
+    public static readonly Dictionary<UnitType, UnitType> correspondTable = new Dictionary<UnitType, UnitType>()
+    {
+        { UnitType.Sui, UnitType.SuiSecond },
+        { UnitType.Taishou, UnitType.TaishouSecond },
+        { UnitType.Chuujou, UnitType.ChuujouSecond },
+        { UnitType.Shoushou, UnitType.ShoushouSecond },
+        { UnitType.Samurai, UnitType.SamuraiSecond },
+        { UnitType.Yari, UnitType.YariSecond },
+        { UnitType.Kiba, UnitType.KibaSecond },
+        { UnitType.Shinobi, UnitType.ShinobiSecond },
+        { UnitType.Toride, UnitType.TorideSecond },
+        { UnitType.Hyou, UnitType.HyouSecond },
+        { UnitType.Oodzutsu, UnitType.OodzutsuSecond },
+        { UnitType.Yumi, UnitType.YumiSecond },
+        { UnitType.Tsutsu, UnitType.TsutsuSecond },
+        { UnitType.Boushou, UnitType.BoushouSecond }
+    };
+
     private int _player;
     private UnitType _unitType;
     private FieldStatus _fieldStatus;
@@ -120,23 +155,110 @@ public class UnitController : MonoBehaviour
         switch (_unitType)
         {
             case UnitType.Sui:
+            case UnitType.SuiSecond:
                 {
-                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(-1, -1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, -1) * player_adjust, cursors);
+                    int max = 0;
+                    if (_unitType == UnitType.Sui)
+                        max = 2;
+                    else
+                        max = 3;
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, -i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(-i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
                     break;
                 }
             case UnitType.Taishou:
+            case UnitType.TaishouSecond:
                 {
-                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(-1, -1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, -1) * player_adjust, cursors);
+                    int max = 0;
+                    if (_unitType == UnitType.Taishou)
+                        max = 2;
+                    else
+                        max = 3;
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, -i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(-i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
 
                     for (int i = 1; i < tile_row; i++)
                     {
@@ -169,13 +291,44 @@ public class UnitController : MonoBehaviour
                     break;
                 }
             case UnitType.Chuujou:
+            case UnitType.ChuujouSecond:
                 {
-                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust, cursors);
+                    int max = 0;
+                    if (_unitType == UnitType.Chuujou)
+                        max = 2;
+                    else
+                        max = 3;
 
-                    int max = (tile_row < tile_file) ? tile_row : tile_file;
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+
+                    max = (tile_row < tile_file) ? tile_row : tile_file;
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
@@ -197,7 +350,7 @@ public class UnitController : MonoBehaviour
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
-                    for (int i = -1; i > max; i--)
+                    for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
@@ -208,62 +361,171 @@ public class UnitController : MonoBehaviour
                     break;
                 }
             case UnitType.Shoushou:
+            case UnitType.ShoushouSecond:
                 {
-                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust, cursors);
-                    break;
-                }
-            case UnitType.Samurai:
-                {
-                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust, cursors);
-                    break;
-                }
-            case UnitType.Yari:
-                {
-                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust, cursors);
+                    int max = 0;
+                    if (_unitType == UnitType.Shoushou)
+                        max = 2;
+                    else
+                        max = 3;
 
-                    for (int i = 1; i < 3; i++)
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(-i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    break;
+                }
+            case UnitType.Samurai:
+            case UnitType.SamuraiSecond:
+                {
+                    int max = 0;
+                    if (_unitType == UnitType.Samurai)
+                        max = 2;
+                    else
+                        max = 3;
+
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(-i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    break;
+                }
+            case UnitType.Yari:
+            case UnitType.YariSecond:
+                {
+                    int max = 0;
+                    if (_unitType == UnitType.Yari)
+                        max = 2;
+                    else
+                        max = 3;
+
+                    for (int i = 1; i < (max + 1); i++)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(-i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     break;
                 }
             case UnitType.Kiba:
+            case UnitType.KibaSecond:
                 {
-                    for (int i = 1; i < 3; i++)
+                    int max = 0;
+                    if (_unitType == UnitType.Kiba)
+                        max = 3;
+                    else
+                        max = 4;
+
+                    for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
-                    for (int i = -1; i > -3; i--)
+                    for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
-                    for (int i = 1; i < 3; i++)
+                    for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
-                    for (int i = -1; i > -3; i--)
+                    for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
@@ -273,29 +535,36 @@ public class UnitController : MonoBehaviour
                     break;
                 }
             case UnitType.Shinobi:
+            case UnitType.ShinobiSecond:
                 {
-                    for (int i = 1; i < 3; i++)
+                    int max = 0;
+                    if (_unitType == UnitType.Shinobi)
+                        max = 3;
+                    else
+                        max = 4;
+
+                    for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
-                    for (int i = 1; i < 3; i++)
+                    for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, -i) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
-                    for (int i = 1; i < 3; i++)
+                    for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, i) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
-                    for (int i = -1; i > -3; i--)
+                    for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
                         if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
@@ -305,50 +574,222 @@ public class UnitController : MonoBehaviour
                     break;
                 }
             case UnitType.Toride:
+            case UnitType.TorideSecond:
                 {
-                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(-1, -1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, -1) * player_adjust, cursors);
+                    int max = 0;
+                    if (_unitType == UnitType.Toride)
+                        max = 2;
+                    else
+                        max = 3;
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, -i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
                     break;
                 }
             case UnitType.Hyou:
+            case UnitType.HyouSecond:
                 {
-                    addAreaInside(list, new Vector2Int(0, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust, cursors);
-                }
-                break;
+                    int max = 0;
+                    if (_unitType == UnitType.Hyou)
+                        max = 2;
+                    else
+                        max = 3;
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    break;
+                }                
             case UnitType.Oodzutsu:
+            case UnitType.OodzutsuSecond:
                 {
-                    addAreaInside(list, new Vector2Int(1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(-1, 0) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, 3) * player_adjust, cursors);
+                    int max = 0;
+                    if (_unitType == UnitType.Oodzutsu)
+                        max = 2;
+                    else
+                        max = 3;
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(i, 0) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 3; i < (max + 2); i++)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
                     break;
                 }
             case UnitType.Yumi:
+            case UnitType.YumiSecond:
                 {
-                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(-1, 2) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, 2) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 2) * player_adjust, cursors);
+                    int max = 0;
+                    if (_unitType == UnitType.Yumi)
+                        max = 2;
+                    else
+                        max = 3;
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(0, 1) + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(0, 1) + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(0, 1) + new Vector2Int(-i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
                     break;
                 }
             case UnitType.Tsutsu:
+            case UnitType.TsutsuSecond:
                 {
-                    addAreaInside(list, new Vector2Int(-1, -1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, -1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, 2) * player_adjust, cursors);
+                    int max = 0;
+                    if (_unitType == UnitType.Tsutsu)
+                        max = 2;
+                    else
+                        max = 3;
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(0, 1) + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, -i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(-i, -i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(-i, -i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
                     break;
                 }
             case UnitType.Boushou:
+            case UnitType.BoushouSecond:
                 {
-                    addAreaInside(list, new Vector2Int(-1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(1, 1) * player_adjust, cursors);
-                    addAreaInside(list, new Vector2Int(0, -1) * player_adjust, cursors);
+                    int max = 0;
+                    if (_unitType == UnitType.Boushou)
+                        max = 2;
+                    else
+                        max = 3;
+
+                    for (int i = -1; i > -max; i--)
+                    {
+                        target = _position + new Vector2Int(0, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
+                    for (int i = 1; i < max; i++)
+                    {
+                        target = _position + new Vector2Int(-i, i) * player_adjust;
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                            if (cursors[target.x, target.y].getOnUnitCount() > 0)
+                                break;
+                    }
                     break;
-                }
+                }            
         }
 
         return list;
@@ -374,4 +815,16 @@ public class UnitController : MonoBehaviour
     public void setStatus(int status) { this._fieldStatus = (FieldStatus)status; }
     public int getFieldStatus() { return (int)this._fieldStatus; }
     public int getPlayer() { return this._player; }
+
+    public void changeUnitType()
+    {
+        if (correspondTable.ContainsKey(_unitType))
+        {
+            _unitType = correspondTable[_unitType];
+        }
+        else if(correspondTable.ContainsValue(_unitType))
+        {
+            _unitType = correspondTable.FirstOrDefault(pair => pair.Value == _unitType).Key;
+        }
+    }
 }
