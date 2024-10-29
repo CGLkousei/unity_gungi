@@ -805,11 +805,22 @@ public class UnitController : MonoBehaviour
         Vector2Int target = _position + index;
         if (target.x >= 0 && target.x < tile_row && target.y >= 0 && target.y < tile_file)
         {            
-            if (cursors[target.x, target.y].getOnUnitCount() <= (int)_fieldStatus)
+            if(_unitType == UnitType.Sui)
             {
-                list.Add(target);                
+                if (cursors[target.x, target.y].getOnUnitCount() < 1)
+                {
+                    list.Add(target);
+                    return true;
+                }
             }
-            return true;
+            else
+            {
+                if (cursors[target.x, target.y].getOnUnitCount() <= (int)_fieldStatus)
+                {
+                    list.Add(target);
+                    return true;
+                }                
+            }            
         }
 
         return false;
