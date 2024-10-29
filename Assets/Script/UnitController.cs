@@ -120,32 +120,35 @@ public class UnitController : MonoBehaviour
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.useGravity = true;
     }
-    public void MoveUnit(Vector3 target, Vector2Int index)
-    {
+    public void MoveUnit(UnitController[,,] units, Vector3 target, Vector2Int index, int destiLayer)
+    {        
+        units[index.x, index.y, destiLayer-1] = units[_position.x, _position.y, (int)_fieldStatus - 1];
+        units[_position.x, _position.y, (int)_fieldStatus - 1] = null;        
+
         _oldPosition = _position;
         _position = index;
 
-
-        if (_fieldStatus == FieldStatus.SecondStage)
+        if ((FieldStatus)destiLayer == FieldStatus.SecondStage)
         {
             target.y = unitHeight * 1.5f;
         }
-        else if (_fieldStatus == FieldStatus.ThirdStage)
+        else if ((FieldStatus)destiLayer == FieldStatus.ThirdStage)
         {
             target.y = unitHeight * 3.0f;
         }
         else
         {
             target.y = 0;
-        }
+        }        
 
+        _fieldStatus = (FieldStatus)destiLayer;
         transform.position = target;
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         if (!rigidbody.useGravity)
             rigidbody.useGravity = true;
     }
 
-    public List<Vector2Int> getMovableTiles(UnitController[,] units, CursorController[,] cursors)
+    public List<Vector2Int> getMovableTiles(CursorController[,] cursors)
     {
         List<Vector2Int> list = new List<Vector2Int>();
         Vector2Int target;
