@@ -97,6 +97,20 @@ public class UnitController : MonoBehaviour
         transform.eulerAngles = getAngles(player);
     }
 
+    public void InitCapturedUnit(int player, int unittype, int row, int file, int max)
+    {
+        this._player = player;
+        this._unitType = (UnitType)unittype;
+        this._fieldStatus = FieldStatus.arata;
+        this._position = new Vector2Int(-1, -1);
+        this.tile_row = row;
+        this.tile_file = file;
+        this.unitHeight = GetComponent<Renderer>().bounds.size.z;
+        this.maxStage = max;
+        this.onUnit = false;
+        transform.eulerAngles = getAngles(player);
+    }
+
     public Vector3 getAngles(int player) { return new Vector3(270, (player + 1) * 180, 0); }
     public bool isOnUnit() { return onUnit; }
     public void SetOnUnit(bool onUnit) { this.onUnit = onUnit; }

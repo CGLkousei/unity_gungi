@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using Unity.VisualScripting;
+using static UnityEditor.PlayerSettings;
 
 public class GameSceneScript : MonoBehaviour
 {
@@ -19,10 +20,12 @@ public class GameSceneScript : MonoBehaviour
     [SerializeField] Button toruBtn;
     [SerializeField] Button cancelBtn;
     [SerializeField] TextMeshProUGUI turnText;
-    [SerializeField] Canvas FinishCanvas;    
+    [SerializeField] Canvas FinishCanvas;
+    [SerializeField] GameObject BlackKomadai;
+    [SerializeField] GameObject WhiteKomadai;
 
     //Default set;
-    int[,] boardSetting =
+    static readonly int[,] boardSetting =
     {
         {0, 0, 10, 0, 0, 0, -10, 0, 0},
         {0, 8, 0, 0, 0, 0, 0, -7, 0},
@@ -34,6 +37,9 @@ public class GameSceneScript : MonoBehaviour
         {0, 7, 0, 0, 0, 0, 0, -8, 0},
         {0, 0, 10, 0, 0, 0, -10, 0, 0},
     };
+
+    static readonly int[] blackCapturedUnit = { 6, 6, 4, 4, 8, 10, 7 };
+    static readonly int[] whiteCapturedUnit = { 6, 6, 4, 4, 8, 10, 7 };
 
     const int playerMax = 2;
     const int maxStage = 2;
@@ -67,7 +73,8 @@ public class GameSceneScript : MonoBehaviour
         cursors = new CursorController[boardWidth, boardHeight];
         units = new UnitController[boardWidth, boardHeight, 2];
 
-        Vector3 tileScale = prefabTile.transform.localScale;
+        //Vector3 tileScale = prefabTile.transform.localScale;
+        Vector3 tileScale = prefabTile.GetComponent<Renderer>().bounds.size;
         tileWidth = tileScale.x;
         tileHeight = tileScale.z;
 
@@ -129,7 +136,103 @@ public class GameSceneScript : MonoBehaviour
                 units[i, j, 0] = unitctrl;
                 cursors[i, j] = cursorctrl;
             }
-        }        
+        }
+        
+        Renderer blackRenderer = BlackKomadai.GetComponent<Renderer>();
+        Vector3 blackCenter = blackRenderer.bounds.center;
+        Vector3 blackSize = blackRenderer.bounds.size;
+        float komadaiWidth = blackSize.x;
+        float komadaiHeight = blackSize.z;
+        int xNum = (int)(komadaiWidth / tileWidth);
+        int yNum = (int)(komadaiHeight / tileHeight);
+
+        float xSpace = (komadaiWidth - tileWidth * xNum) / (xNum + 1);
+        float ySpace = (komadaiHeight - tileHeight * yNum) / (yNum + 1);
+
+        float xFirst = 0;
+        if(xNum % 2 == 0)        
+            xFirst = blackCenter.x - (0.5f * tileWidth) - (xSpace * 0.5f) - (xNum * 0.5f - 1) * (tileWidth + xSpace);                    
+        else        
+            xFirst = blackCenter.x - (int)(xNum / 2) * (tileWidth + xSpace);                    
+
+        float yFirst = 0;
+        if(yNum % 2 == 0)        
+            yFirst = blackCenter.z + (0.5f * tileHeight) + (ySpace * 0.5f) + (yNum * 0.5f -1) * (tileHeight + ySpace);                    
+        else        
+            yFirst = blackCenter.z + (int)(yNum / 2) * (tileHeight + ySpace);                   
+
+        for(int i = 0; i < blackCapturedUnit.Length; i++)
+        {
+            float x = xFirst + (int)(i % xNum) * (tileWidth + xSpace);
+            float z = yFirst - (int)(i / xNum) * (tileHeight + ySpace);
+
+            GameObject prefabUnit = blackUnits[blackCapturedUnit[i] - 1];
+            GameObject unit = Instantiate(prefabUnit, new Vector3(x, 0, z), Quaternion.Euler(0, 0, 0));
+
+            Vector3 newScale = unit.transform.localScale;
+            newScale.z *= 2;
+            unit.transform.localScale = newScale;
+
+            Rigidbody rigidbody = unit.AddComponent<Rigidbody>();
+            rigidbody.mass = 10f;
+            rigidbody.drag = 10f;
+            rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+            BoxCollider collider = unit.AddComponent<BoxCollider>();
+            collider.size = new Vector3(0.03f, 0.03f, 0.003f);
+            collider.center = new Vector3(0f, 0f, 0.002f);
+
+            UnitController unitctrl = unit.AddComponent<UnitController>();
+            unitctrl.InitCapturedUnit(0, blackCapturedUnit[i]-1, boardWidth, boardHeight, maxStage);
+        }
+
+        Renderer whiteRenderer = WhiteKomadai.GetComponent<Renderer>();
+        Vector3 whiteCenter = whiteRenderer.bounds.center;
+        Vector3 whiteSize = whiteRenderer.bounds.size;
+        komadaiWidth = whiteSize.x;
+        komadaiHeight = whiteSize.z;
+        xNum = (int)(komadaiWidth / tileWidth);
+        yNum = (int)(komadaiHeight / tileHeight);
+
+        xSpace = (komadaiWidth - tileWidth * xNum) / (xNum + 1);
+        ySpace = (komadaiHeight - tileHeight * yNum) / (yNum + 1);
+
+        xFirst = 0;
+        if (xNum % 2 == 0)
+            xFirst = whiteCenter.x - (0.5f * tileWidth) - (xSpace * 0.5f) - (xNum * 0.5f - 1) * (tileWidth + xSpace);
+        else
+            xFirst = whiteCenter.x - (int)(xNum / 2) * (tileWidth + xSpace);
+
+        yFirst = 0;
+        if (yNum % 2 == 0)
+            yFirst = whiteCenter.z + (0.5f * tileHeight) + (ySpace * 0.5f) + (yNum * 0.5f - 1) * (tileHeight + ySpace);
+        else
+            yFirst = whiteCenter.z + (int)(yNum / 2) * (tileHeight + ySpace);
+
+        for (int i = 0; i < whiteCapturedUnit.Length; i++)
+        {
+            float x = xFirst + (int)(i % xNum) * (tileWidth + xSpace);
+            float z = yFirst - (int)(i / xNum) * (tileHeight + ySpace);
+
+            GameObject prefabUnit = whiteUnits[whiteCapturedUnit[i] - 1];
+            GameObject unit = Instantiate(prefabUnit, new Vector3(x, 0, z), Quaternion.Euler(0, 0, 0));
+
+            Vector3 newScale = unit.transform.localScale;
+            newScale.z *= 2;
+            unit.transform.localScale = newScale;
+
+            Rigidbody rigidbody = unit.AddComponent<Rigidbody>();
+            rigidbody.mass = 10f;
+            rigidbody.drag = 10f;
+            rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+            BoxCollider collider = unit.AddComponent<BoxCollider>();
+            collider.size = new Vector3(0.03f, 0.03f, 0.003f);
+            collider.center = new Vector3(0f, 0f, 0.002f);
+
+            UnitController unitctrl = unit.AddComponent<UnitController>();
+            unitctrl.InitCapturedUnit(1, whiteCapturedUnit[i] - 1, boardWidth, boardHeight, maxStage);
+        }
     }
 
     // Update is called once per frame
