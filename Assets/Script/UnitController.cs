@@ -135,10 +135,17 @@ public class UnitController : MonoBehaviour
         rigidbody.useGravity = true;
     }
     public void MoveUnit(UnitController[,,] units, Vector3 target, Vector2Int index, int destiLayer)
-    {        
-        units[index.x, index.y, destiLayer-1] = units[_position.x, _position.y, (int)_fieldStatus - 1];
-        units[_position.x, _position.y, (int)_fieldStatus - 1] = null;        
-
+    {
+        if ((int)_fieldStatus > 0)
+        {
+            units[index.x, index.y, destiLayer - 1] = units[_position.x, _position.y, (int)_fieldStatus - 1];
+            units[_position.x, _position.y, (int)_fieldStatus - 1] = null;
+        }
+        else if ((int)_fieldStatus == 0)
+        {
+            units[index.x, index.y, destiLayer - 1] = this;
+        }
+ 
         _oldPosition = _position;
         _position = index;
 
