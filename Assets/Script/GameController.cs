@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Reflection;
 
 public class GameSceneScript : MonoBehaviour
 {
@@ -14,10 +15,12 @@ public class GameSceneScript : MonoBehaviour
     [SerializeField] List<GameObject> blackUnits;
     [SerializeField] Material transparentMaterial;
     [SerializeField] Material cursorMaterial;
+    [SerializeField] Material checkMaterial;
     [SerializeField] Button tukeBtn;
     [SerializeField] Button toruBtn;
     [SerializeField] Button cancelBtn;
     [SerializeField] TextMeshProUGUI turnText;
+    [SerializeField] TextMeshProUGUI checkText;
     [SerializeField] Canvas FinishCanvas;
     [SerializeField] GameObject BlackKomadai;
     [SerializeField] GameObject WhiteKomadai;
@@ -78,6 +81,7 @@ public class GameSceneScript : MonoBehaviour
 
         turnText.color = Color.black;
         turnText.text = "•‚Ìƒ^[ƒ“‚Å‚·";
+        checkText.gameObject.SetActive(false);
 
         clickedBtnFlag = false;
         finishFlag = false;
@@ -281,7 +285,7 @@ public class GameSceneScript : MonoBehaviour
 
                     selectedUnit = null;
                     selectedUnitMovable = null;
-                    setTransparent();
+                    setTransparent(cursorMaterial);
                 }
                 else if (checkBtn == 1)
                 {
@@ -344,7 +348,7 @@ public class GameSceneScript : MonoBehaviour
 
                     selectedUnit = null;
                     selectedUnitMovable = null;
-                    setTransparent();
+                    setTransparent(cursorMaterial);
                 }
 
                 tukeBtn.gameObject.SetActive(false);
@@ -402,7 +406,7 @@ public class GameSceneScript : MonoBehaviour
                         {
                             if (unitctrl != null)
                             {
-                                setTransparent();
+                                setTransparent(cursorMaterial);
                                 unitctrl.LiftOffUnit();
                             }
                             selectedUnit = null;
@@ -436,7 +440,7 @@ public class GameSceneScript : MonoBehaviour
                                     {
                                         selectedUnit = null;
                                         selectedUnitMovable = null;
-                                        setTransparent();
+                                        setTransparent(cursorMaterial);
 
                                         if (unitctrl.getFieldStatus() > 1)
                                         {
@@ -466,7 +470,7 @@ public class GameSceneScript : MonoBehaviour
                                     else if (cursorIndex == unitctrl.getIndex())
                                     {
                                         if(unitctrl != null) {                             
-                                            setTransparent();
+                                            setTransparent(cursorMaterial);
                                             unitctrl.LiftOffUnit();
                                         }
                                         selectedUnit = null;
@@ -517,14 +521,17 @@ public class GameSceneScript : MonoBehaviour
         float z = (file - boardHeight / 2) * tileHeight;
         return new Vector3(x, 0, z);
     }
-    private void setTransparent()
+    private void setTransparent(Material material)
     {
         for (int i = 0; i < boardWidth; i++)
         {
             for (int j = 0; j < boardHeight; j++)
             {
                 Renderer renderer = cursors[i, j].GetComponent<Renderer>();
-                renderer.material = transparentMaterial;
+                if(renderer.sharedMaterial == material)
+                {
+                    renderer.material = transparentMaterial;
+                }                             
             }
         }
     }    
@@ -560,19 +567,28 @@ public class GameSceneScript : MonoBehaviour
 
     private bool changePlayer()
     {
-        Vector2Int kingIndex = new Vector2Int(-1, -1);
-        for(int i = 0; i < boardWidth; i++)
+        setTransparent(checkMaterial);        
+        checkText.gameObject.SetActive(false);
+
+        Vector2Int eneKingIndex = new Vector2Int(-1, -1);
+        Vector2Int myKingIndex = new Vector2Int(-1, -1);
+        for (int i = 0; i < boardWidth; i++)
         {
             for(int j = 0; j < boardHeight; j++)
             {                
                 UnitController unitctrl = units[i, j, 0];
                 if (unitctrl == null) continue;
-                if (unitctrl.getPlayer() != nowPlayer) continue;
 
                 if (unitctrl.getUnitType() == UnitType.Sui)
                 {
-                    kingIndex = unitctrl.getIndex();
-                    break;
+                    if(unitctrl.getPlayer() == nowPlayer)
+                    {
+                        eneKingIndex = unitctrl.getIndex();
+                    }
+                    else
+                    {
+                        myKingIndex = unitctrl.getIndex();
+                    }
                 }
             }
         }
@@ -591,6 +607,30 @@ public class GameSceneScript : MonoBehaviour
 
         for (int i = 0; i < boardWidth; i++)
         {
+            for (int j = 0; j < boardHeight; j++)
+            {
+                for (int k = 0; k < 2; k++)
+                {
+                    UnitController unitctrl = units[i, j, k];
+                    if (unitctrl == null) continue;
+                    if (unitctrl.getPlayer() == nowPlayer) continue;
+                    if (unitctrl.isOnUnit()) continue;
+
+                    List<Vector2Int> area = unitctrl.getMovableTiles(cursors);
+                    if (area.Contains(myKingIndex))
+                    {
+                        Vector2Int index = unitctrl.getIndex();
+                        Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
+                        renderer.material = checkMaterial;
+                        checkText.gameObject.SetActive(true);
+                    }
+                        
+                }
+            }
+        }
+
+        for (int i = 0; i < boardWidth; i++)
+        {
             for(int j = 0; j < boardHeight; j++)
             {
                 for(int k = 0; k < 2; k++)
@@ -601,7 +641,7 @@ public class GameSceneScript : MonoBehaviour
                     if (unitctrl.isOnUnit()) continue;
 
                     List<Vector2Int> area = unitctrl.getMovableTiles(cursors);
-                    if (area.Contains(kingIndex))
+                    if (area.Contains(eneKingIndex))
                         return true;
                 }                
             }
