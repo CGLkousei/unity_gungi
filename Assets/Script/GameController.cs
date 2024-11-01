@@ -275,12 +275,13 @@ public class GameSceneScript : MonoBehaviour
                         cursors[destinationIndex.x, destinationIndex.y].setOnUnitCount(cursors[destinationIndex.x, destinationIndex.y].getOnUnitCount() + 1);
                     }
                     upStageUnit.MoveUnit(units, getPosition(destinationIndex.x, destinationIndex.y), destinationIndex, 2);
+                    upStageUnit.changeUnitType();
+
                     if (changePlayer())
                         finishFlag = true;
 
                     firstRigid.isKinematic = true;
-
-                    upStageUnit.changeUnitType();
+                    
                     bottomStageUnit.SetOnUnit(true);                    
 
                     selectedUnit = null;
@@ -288,7 +289,7 @@ public class GameSceneScript : MonoBehaviour
                     setTransparent(cursorMaterial);
                 }
                 else if (checkBtn == 1)
-                {
+                {                    
                     UnitController targetUnitctrl = clickedObject.GetComponent<UnitController>();
                     UnitController attackUnitctrl = selectedUnit.GetComponent<UnitController>();
                     UnitController targetBottomUnit = getUnitSameTile(units, targetUnitctrl);
@@ -326,12 +327,13 @@ public class GameSceneScript : MonoBehaviour
                             bottomRigid.isKinematic = false;
 
                             attackUnitctrl.MoveUnit(units, getPosition(targetIndex.x, targetIndex.y), targetIndex, 2);
+                            attackUnitctrl.changeUnitType();
+
                             if (changePlayer())
                                 finishFlag = true;
 
                             bottomRigid.isKinematic = true;
-
-                            attackUnitctrl.changeUnitType();
+                            
                             targetBottomUnit.SetOnUnit(true);
                             cursors[attackIndex.x, attackIndex.y].setOnUnitCount(cursors[attackIndex.x, attackIndex.y].getOnUnitCount() - 1);
                         }
@@ -385,7 +387,7 @@ public class GameSceneScript : MonoBehaviour
                                     }
                                     else
                                     {
-                                        selectedUnitMovable = unitctrl.getMovableTiles(cursors);                                        
+                                        selectedUnitMovable = unitctrl.getMovableTiles(cursors, units);                                        
                                     }
                                     foreach (var index in selectedUnitMovable)
                                     {
@@ -424,7 +426,7 @@ public class GameSceneScript : MonoBehaviour
                                         Vector2Int unitIndex = _unitctrl.getIndex();
                                         if (selectedUnitMovable.Contains(unitIndex))
                                         {
-                                            showBtn(_unitctrl, unitctrl.getPlayer());
+                                            showBtn(_unitctrl, unitctrl);
                                         }
                                     }
                                 }
@@ -546,12 +548,18 @@ public class GameSceneScript : MonoBehaviour
             checkBtn = 1;          
         
     }
-    private void showBtn(UnitController clickedUnit, int selectedPlayer)
+    private void showBtn(UnitController clickedUnit, UnitController selectedUnit)
     {   
-        int clickedPlayer = clickedUnit.getPlayer();        
+        int clickedPlayer = clickedUnit.getPlayer();      
+        int selectedPlayer = selectedUnit.getPlayer();
 
         bool tukeFlag = clickedUnit.getFieldStatus() < maxStage;
         bool toruFlag = clickedPlayer != selectedPlayer;
+
+        if(selectedUnit.getUnitType() == UnitType.Sui || selectedUnit.getUnitType() == UnitType.SuiSecond)
+        {
+            tukeFlag = false;
+        }
 
         if (tukeFlag || toruFlag)
         {
@@ -603,7 +611,7 @@ public class GameSceneScript : MonoBehaviour
         {
             turnText.color = Color.white;
             turnText.text = "”’‚Ìƒ^[ƒ“‚Å‚·";
-        }
+        }        
 
         for (int i = 0; i < boardWidth; i++)
         {
@@ -616,9 +624,9 @@ public class GameSceneScript : MonoBehaviour
                     if (unitctrl.getPlayer() == nowPlayer) continue;
                     if (unitctrl.isOnUnit()) continue;
 
-                    List<Vector2Int> area = unitctrl.getMovableTiles(cursors);
+                    List<Vector2Int> area = unitctrl.getMovableTiles(cursors, units);                          
                     if (area.Contains(myKingIndex))
-                    {
+                    {                        
                         Vector2Int index = unitctrl.getIndex();
                         Renderer renderer = cursors[index.x, index.y].GetComponent<Renderer>();
                         renderer.material = checkMaterial;
@@ -640,7 +648,7 @@ public class GameSceneScript : MonoBehaviour
                     if (unitctrl.getPlayer() != nowPlayer) continue;
                     if (unitctrl.isOnUnit()) continue;
 
-                    List<Vector2Int> area = unitctrl.getMovableTiles(cursors);
+                    List<Vector2Int> area = unitctrl.getMovableTiles(cursors, units);
                     if (area.Contains(eneKingIndex))
                         return true;
                 }                
@@ -680,15 +688,31 @@ public class GameSceneScript : MonoBehaviour
             for(int j = boardHeight-1; j >= 0; j--)
             {
                 for(int i = 0; i < boardWidth; i++)
-                {
+                {                    
                     if (units[i, j, 0] != null)
                     {
-                        if (units[i, j, 0].getPlayer() == 0)
-                        {                            
-                            row = j;
-                            flag = true;
-                            break;
+                        if (units[i, j, 0].isOnUnit())
+                        {
+                            UnitController upUnit = getUnitSameTile(units, units[i, j, 0]);
+                            if(upUnit != null)
+                            {
+                                if(upUnit.getPlayer() == 0)
+                                {
+                                    row = j;
+                                    flag = true;
+                                    break;
+                                }
+                            }
                         }
+                        else
+                        {
+                            if (units[i, j, 0].getPlayer() == 0)
+                            {
+                                row = j;
+                                flag = true;
+                                break;
+                            }
+                        }                        
                     }
                 }
                 if (flag)
@@ -722,11 +746,27 @@ public class GameSceneScript : MonoBehaviour
                 {
                     if (units[i, j, 0] != null)
                     {
-                        if (units[i, j, 0].getPlayer() == 1)
+                        if (units[i, j, 0].isOnUnit())
                         {
-                            row = j;
-                            flag = true;
-                            break;
+                            UnitController upUnit = getUnitSameTile(units, units[i, j, 0]);
+                            if (upUnit != null)
+                            {
+                                if (upUnit.getPlayer() == 1)
+                                {
+                                    row = j;
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (units[i, j, 0].getPlayer() == 1)
+                            {
+                                row = j;
+                                flag = true;
+                                break;
+                            }
                         }
                     }
                 }

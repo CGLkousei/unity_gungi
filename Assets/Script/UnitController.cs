@@ -160,7 +160,7 @@ public class UnitController : MonoBehaviour
         else
         {
             target.y = 0;
-        }        
+        }
 
         _fieldStatus = (FieldStatus)destiLayer;
         transform.position = target;
@@ -169,7 +169,7 @@ public class UnitController : MonoBehaviour
             rigidbody.useGravity = true;
     }
 
-    public List<Vector2Int> getMovableTiles(CursorController[,] cursors)
+    public List<Vector2Int> getMovableTiles(CursorController[,] cursors, UnitController[,,] units)
     {
         List<Vector2Int> list = new List<Vector2Int>();
         Vector2Int target;
@@ -190,28 +190,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -219,28 +219,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, -i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -258,28 +258,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, -i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -287,28 +287,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < tile_row; i++)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if(addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))                       
+                        if(addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))                       
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;                        
                     }
                     for (int i = -1; i > -tile_row; i--)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < tile_file; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -tile_file; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -326,28 +326,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -356,28 +356,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, -i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -396,28 +396,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -425,14 +425,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -451,14 +451,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -466,14 +466,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -491,14 +491,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < (max + 1); i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -506,14 +506,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -531,28 +531,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -570,28 +570,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, -i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -609,21 +609,21 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -631,14 +631,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, -i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -656,14 +656,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -681,28 +681,28 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(i, 0) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, 0) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 3; i < (max + 2); i++)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -720,14 +720,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, 1) + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -735,14 +735,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, 1) + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, 1) + new Vector2Int(-i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -760,7 +760,7 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(0, 1) + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -768,14 +768,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, -i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, -i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, -i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, -i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, -i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -793,7 +793,7 @@ public class UnitController : MonoBehaviour
                     for (int i = -1; i > -max; i--)
                     {
                         target = _position + new Vector2Int(0, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(0, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -801,14 +801,14 @@ public class UnitController : MonoBehaviour
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
                     for (int i = 1; i < max; i++)
                     {
                         target = _position + new Vector2Int(-i, i) * player_adjust;
-                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors))
+                        if (addAreaInside(list, new Vector2Int(-i, i) * player_adjust, cursors, units))
                             if (cursors[target.x, target.y].getOnUnitCount() > 0)
                                 break;
                     }
@@ -821,7 +821,7 @@ public class UnitController : MonoBehaviour
     public UnitType getUnitType() { return this._unitType; }
     public Vector2Int getIndex() { return this._position; }
 
-    private bool addAreaInside(List<Vector2Int> list, Vector2Int index, CursorController[,] cursors)
+    private bool addAreaInside(List<Vector2Int> list, Vector2Int index, CursorController[,] cursors, UnitController[,,] units)
     {
         Vector2Int target = _position + index;
         if (target.x >= 0 && target.x < tile_row && target.y >= 0 && target.y < tile_file)
@@ -832,14 +832,46 @@ public class UnitController : MonoBehaviour
                 {
                     list.Add(target);
                     return true;
+                }                
+                else if(cursors[target.x, target.y].getOnUnitCount() == 1)
+                {
+                    UnitController eneUnit = units[target.x, target.y, 0];
+                    if (eneUnit != null)
+                    {
+                        if (eneUnit._player != _player)
+                        {
+                            list.Add(target);
+                            return true;
+                        }
+                    }
                 }
             }
             else
             {
                 if (cursors[target.x, target.y].getOnUnitCount() <= (int)_fieldStatus)
                 {
-                    list.Add(target);
-                    return true;
+                    UnitController eneUnit = units[target.x, target.y, 0];
+                    if (eneUnit != null)
+                    {
+                        if (eneUnit._unitType == UnitType.Sui || eneUnit._unitType == UnitType.SuiSecond)
+                        {
+                            if(eneUnit._player != _player)
+                            {
+                                list.Add(target);
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            list.Add(target);
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        list.Add(target);
+                        return true;
+                    }                    
                 }                
             }            
         }
