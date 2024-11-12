@@ -1,0 +1,318 @@
+{ "cat":"", "pid":12345, "tid":0, "ts":0, "ph":"M", "name":"process_name", "args": { "name":"bee_backend" } }
+,{ "pid":12345, "tid":0, "ts":1730453639123882, "dur":14650, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1730453639138607, "dur":598, "ph":"X", "name": "BuildQueueInit",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1730453639139218, "dur":1714, "ph":"X", "name": "EnqueueRequestedNodes",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1730453639140933, "dur":191137, "ph":"X", "name": "WaitForBuildFinished", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1730453639332075, "dur":450, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1730453639332614, "dur":54, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1730453639332769, "dur":1176, "ph":"X", "name": "Tundra",  "args": { "detail":"Write AllBuiltNodes" }}
+,{ "pid":12345, "tid":1, "ts":1730453639139153, "dur":1834, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1730453639140991, "dur":348, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1730453639141340, "dur":2379, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1730453639144741, "dur":1522, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/config" }}
+,{ "pid":12345, "tid":1, "ts":1730453639146288, "dur":974, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Numerics.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639147285, "dur":820, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Drawing.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639148130, "dur":666, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.ComponentModel.Composition.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639148821, "dur":837, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.VisualScripting.Antlr3.Runtime.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639149674, "dur":112, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Users\\a5820\\unity_gungi\\Library\\Bee\\PlayerScriptAssemblies\\UnityEngine.UI.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639149674, "dur":112, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UI.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639149793, "dur":1659, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UI.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639151500, "dur":816, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.VirtualTexturingModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639152338, "dur":1182, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityWebRequestModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639153543, "dur":1769, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639155334, "dur":2978, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639158347, "dur":242, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.SharedInternalsModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639158611, "dur":1783, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.SharedInternalsModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639160419, "dur":3049, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.PerformanceReportingModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639163542, "dur":2743, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.HotReloadModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639166351, "dur":2743, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.ClusterRendererModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1730453639169124, "dur":38410, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/sharedassets1.assets.resS" }}
+,{ "pid":12345, "tid":1, "ts":1730453639207601, "dur":124617, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1730453639139208, "dur":1917, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1730453639141128, "dur":355, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1730453639141483, "dur":2256, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1730453639143740, "dur":68, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.0/settings.map" }}
+,{ "pid":12345, "tid":2, "ts":1730453639227227, "dur":823, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.0/settings.map" }}
+,{ "pid":12345, "tid":2, "ts":1730453639228074, "dur":104053, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1730453639139127, "dur":1848, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1730453639140978, "dur":402, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1730453639141380, "dur":2340, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1730453639246728, "dur":3749, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/browscap.ini" }}
+,{ "pid":12345, "tid":3, "ts":1730453639250510, "dur":81571, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1730453639139081, "dur":1875, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1730453639140969, "dur":2736, "ph":"X", "name": "CheckDagSignatures",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1730453639225075, "dur":634, "ph":"X", "name": "WriteText",  "args": { "detail":"Library/Bee/artifacts/csharpactions/boot.config_tyr4.info" }}
+,{ "pid":12345, "tid":4, "ts":1730453639225717, "dur":140, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\PlayerDataCache\\Win64\\Data\\boot.config" }}
+,{ "pid":12345, "tid":4, "ts":1730453639226167, "dur":143, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\Bee\\Playerb15cc96f-inputdata.json" }}
+,{ "pid":12345, "tid":4, "ts":1730453639225716, "dur":762, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"AddBootConfigGUID Library/Bee/artifacts/WinPlayerBuildProgram/boot.config" }}
+,{ "pid":12345, "tid":4, "ts":1730453639227124, "dur":101055, "ph":"X", "name": "AddBootConfigGUID",  "args": { "detail":"Library/Bee/artifacts/WinPlayerBuildProgram/boot.config" }}
+,{ "pid":12345, "tid":4, "ts":1730453639329952, "dur":70, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\Bee\\artifacts\\WinPlayerBuildProgram\\boot.config" }}
+,{ "pid":12345, "tid":4, "ts":1730453639329951, "dur":71, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/boot.config" }}
+,{ "pid":12345, "tid":4, "ts":1730453639330032, "dur":1939, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/boot.config" }}
+,{ "pid":12345, "tid":5, "ts":1730453639139644, "dur":1883, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1730453639141527, "dur":2255, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1730453639143799, "dur":108, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\2.0\\machine.config" }}
+,{ "pid":12345, "tid":5, "ts":1730453639143783, "dur":125, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/machine.config" }}
+,{ "pid":12345, "tid":5, "ts":1730453639149815, "dur":941, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/machine.config" }}
+,{ "pid":12345, "tid":5, "ts":1730453639150779, "dur":1185, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.WindModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1730453639151989, "dur":1158, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1730453639153174, "dur":1612, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityAnalyticsModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1730453639154832, "dur":1901, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1730453639156794, "dur":2327, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.StreamingModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1730453639159161, "dur":3187, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.PhysicsModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1730453639162425, "dur":2757, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.InputLegacyModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1730453639165223, "dur":3042, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.CrashReportingModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1730453639168330, "dur":5363, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.ARModule.dll" }}
+,{ "pid":12345, "tid":5, "ts":1730453639173767, "dur":3254, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/level0.resS" }}
+,{ "pid":12345, "tid":5, "ts":1730453639177073, "dur":155120, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1730453639139588, "dur":1930, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1730453639141519, "dur":2210, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1730453639143731, "dur":76, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":6, "ts":1730453639227518, "dur":1027, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":6, "ts":1730453639228563, "dur":103594, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":7, "ts":1730453639139178, "dur":1922, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":7, "ts":1730453639141118, "dur":364, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":7, "ts":1730453639141482, "dur":2305, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":7, "ts":1730453639143813, "dur":60, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\EmbedRuntime\\MonoPosixHelper.dll" }}
+,{ "pid":12345, "tid":7, "ts":1730453639143788, "dur":86, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll" }}
+,{ "pid":12345, "tid":7, "ts":1730453639224066, "dur":2750, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll" }}
+,{ "pid":12345, "tid":7, "ts":1730453639226894, "dur":105272, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":8, "ts":1730453639139708, "dur":1832, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":8, "ts":1730453639141541, "dur":2259, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":8, "ts":1730453639143823, "dur":84, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Temp\\StagingArea\\WindowsPlayer.exe" }}
+,{ "pid":12345, "tid":8, "ts":1730453639143801, "dur":106, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi.exe" }}
+,{ "pid":12345, "tid":8, "ts":1730453639144549, "dur":1844, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi.exe" }}
+,{ "pid":12345, "tid":8, "ts":1730453639146440, "dur":1258, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Net.Http.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639147749, "dur":1100, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Core.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639148862, "dur":147, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Users\\a5820\\unity_gungi\\Library\\Bee\\PlayerScriptAssemblies\\Unity.VisualScripting.Flow.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639148862, "dur":147, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.VisualScripting.Flow.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639149014, "dur":1274, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.VisualScripting.Flow.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639150321, "dur":155, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Users\\a5820\\unity_gungi\\Library\\Bee\\PlayerScriptAssemblies\\Unity.Timeline.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639150320, "dur":157, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.Timeline.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639150491, "dur":1252, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.Timeline.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639151787, "dur":781, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.VehiclesModule.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639152592, "dur":1236, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639153853, "dur":2332, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UIElementsModule.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639156225, "dur":2744, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.SubsystemsModule.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639159007, "dur":3174, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.PropertiesModule.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639162257, "dur":3262, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.InputModule.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639165579, "dur":7302, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.CoreModule.dll" }}
+,{ "pid":12345, "tid":8, "ts":1730453639172937, "dur":2360, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/resources.assets" }}
+,{ "pid":12345, "tid":8, "ts":1730453639175411, "dur":156655, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":9, "ts":1730453639139263, "dur":2006, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":9, "ts":1730453639141271, "dur":2451, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":9, "ts":1730453639241392, "dur":1140, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.5/web.config" }}
+,{ "pid":12345, "tid":9, "ts":1730453639242550, "dur":89540, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":10, "ts":1730453639139233, "dur":1921, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":10, "ts":1730453639141190, "dur":256, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":10, "ts":1730453639141446, "dur":2362, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":10, "ts":1730453639143837, "dur":257, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\MonoBleedingEdge\\lib\\mono\\unityjit-win32\\System.Xml.Linq.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639143809, "dur":286, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Xml.Linq.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639144469, "dur":1203, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Xml.Linq.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639145726, "dur":1162, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Runtime.Serialization.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639146924, "dur":832, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.EnterpriseServices.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639147776, "dur":748, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Configuration.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639148544, "dur":685, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/netstandard.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639149244, "dur":208, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Users\\a5820\\unity_gungi\\Library\\Bee\\PlayerScriptAssemblies\\Unity.VisualScripting.Core.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639149244, "dur":209, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.VisualScripting.Core.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639149457, "dur":1170, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.VisualScripting.Core.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639150652, "dur":1223, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.XRModule.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639151925, "dur":1223, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.VFXModule.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639153169, "dur":1247, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityConnectModule.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639154459, "dur":1884, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.TilemapModule.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639156367, "dur":2132, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.SubstanceModule.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639158539, "dur":1963, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.ScreenCaptureModule.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639160558, "dur":3554, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.ParticleSystemModule.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639164187, "dur":3133, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.GameCenterModule.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639167362, "dur":5767, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.AndroidJNIModule.dll" }}
+,{ "pid":12345, "tid":10, "ts":1730453639173283, "dur":3199, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/level1.resS" }}
+,{ "pid":12345, "tid":10, "ts":1730453639176519, "dur":155542, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":11, "ts":1730453639139283, "dur":2091, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":11, "ts":1730453639141376, "dur":2335, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":11, "ts":1730453639143734, "dur":72, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\UnityCrashHandler64.exe" }}
+,{ "pid":12345, "tid":11, "ts":1730453639143715, "dur":92, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/UnityCrashHandler64.exe" }}
+,{ "pid":12345, "tid":11, "ts":1730453639227885, "dur":4888, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/UnityCrashHandler64.exe" }}
+,{ "pid":12345, "tid":11, "ts":1730453639232804, "dur":99340, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":12, "ts":1730453639139308, "dur":2089, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":12, "ts":1730453639141397, "dur":2352, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":12, "ts":1730453639226087, "dur":1171, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":12, "ts":1730453639227282, "dur":104922, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":13, "ts":1730453639139327, "dur":2076, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":13, "ts":1730453639141403, "dur":2401, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":13, "ts":1730453639143832, "dur":60, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\MonoBleedingEdge\\lib\\mono\\unityjit-win32\\System.dll" }}
+,{ "pid":12345, "tid":13, "ts":1730453639143806, "dur":87, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.dll" }}
+,{ "pid":12345, "tid":13, "ts":1730453639155107, "dur":11438, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.dll" }}
+,{ "pid":12345, "tid":13, "ts":1730453639170104, "dur":61, "ph":"X", "name": "EmitNodeFinish",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":13, "ts":1730453639166696, "dur":3514, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.ClothModule.dll" }}
+,{ "pid":12345, "tid":13, "ts":1730453639170318, "dur":2841, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/ScriptingAssemblies.json" }}
+,{ "pid":12345, "tid":13, "ts":1730453639173291, "dur":3186, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/level1" }}
+,{ "pid":12345, "tid":13, "ts":1730453639176562, "dur":155502, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":14, "ts":1730453639139355, "dur":2057, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":14, "ts":1730453639141413, "dur":2334, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":14, "ts":1730453639143748, "dur":51, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":14, "ts":1730453639226379, "dur":1154, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":14, "ts":1730453639227558, "dur":104578, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":15, "ts":1730453639139373, "dur":2046, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":15, "ts":1730453639141419, "dur":2323, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":15, "ts":1730453639143796, "dur":111, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\4.0\\machine.config" }}
+,{ "pid":12345, "tid":15, "ts":1730453639143746, "dur":162, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.0/machine.config" }}
+,{ "pid":12345, "tid":15, "ts":1730453639241821, "dur":717, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.0/machine.config" }}
+,{ "pid":12345, "tid":15, "ts":1730453639242554, "dur":89530, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":16, "ts":1730453639139394, "dur":2030, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":16, "ts":1730453639141425, "dur":2378, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":16, "ts":1730453639143837, "dur":55, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\MonoBleedingEdge\\lib\\mono\\unityjit-win32\\mscorlib.dll" }}
+,{ "pid":12345, "tid":16, "ts":1730453639143804, "dur":89, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/mscorlib.dll" }}
+,{ "pid":12345, "tid":16, "ts":1730453639154721, "dur":14878, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/mscorlib.dll" }}
+,{ "pid":12345, "tid":16, "ts":1730453639169657, "dur":7707, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/sharedassets1.assets" }}
+,{ "pid":12345, "tid":16, "ts":1730453639177407, "dur":154790, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":17, "ts":1730453639139419, "dur":2058, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":17, "ts":1730453639141478, "dur":2323, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":17, "ts":1730453639143802, "dur":100, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Resources/unity default resources" }}
+,{ "pid":12345, "tid":17, "ts":1730453639154128, "dur":8687, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Resources/unity default resources" }}
+,{ "pid":12345, "tid":17, "ts":1730453639162901, "dur":2804, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.ImageConversionModule.dll" }}
+,{ "pid":12345, "tid":17, "ts":1730453639165807, "dur":3023, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.ContentLoadModule.dll" }}
+,{ "pid":12345, "tid":17, "ts":1730453639168932, "dur":97812, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/UnityPlayer.dll" }}
+,{ "pid":12345, "tid":17, "ts":1730453639266773, "dur":65295, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":18, "ts":1730453639139442, "dur":2043, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":18, "ts":1730453639141485, "dur":2300, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":18, "ts":1730453639143787, "dur":110, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":18, "ts":1730453639150466, "dur":1300, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":18, "ts":1730453639151803, "dur":792, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.VRModule.dll" }}
+,{ "pid":12345, "tid":18, "ts":1730453639152621, "dur":1041, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityTestProtocolModule.dll" }}
+,{ "pid":12345, "tid":18, "ts":1730453639153685, "dur":1769, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UIModule.dll" }}
+,{ "pid":12345, "tid":18, "ts":1730453639155497, "dur":5316, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.TerrainModule.dll" }}
+,{ "pid":12345, "tid":18, "ts":1730453639160887, "dur":3267, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.NVIDIAModule.dll" }}
+,{ "pid":12345, "tid":18, "ts":1730453639164193, "dur":2868, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.GIModule.dll" }}
+,{ "pid":12345, "tid":18, "ts":1730453639167094, "dur":4483, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.AssetBundleModule.dll" }}
+,{ "pid":12345, "tid":18, "ts":1730453639171950, "dur":3560, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Resources/unity_builtin_extra" }}
+,{ "pid":12345, "tid":18, "ts":1730453639175547, "dur":156636, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":19, "ts":1730453639139461, "dur":2029, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":19, "ts":1730453639141491, "dur":2262, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":19, "ts":1730453639143815, "dur":85, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\2.0\\web.config" }}
+,{ "pid":12345, "tid":19, "ts":1730453639143756, "dur":145, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/web.config" }}
+,{ "pid":12345, "tid":19, "ts":1730453639154303, "dur":830, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/web.config" }}
+,{ "pid":12345, "tid":19, "ts":1730453639155160, "dur":2051, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll" }}
+,{ "pid":12345, "tid":19, "ts":1730453639157261, "dur":3048, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.SpriteMaskModule.dll" }}
+,{ "pid":12345, "tid":19, "ts":1730453639160405, "dur":3192, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.Physics2DModule.dll" }}
+,{ "pid":12345, "tid":19, "ts":1730453639163640, "dur":2877, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.GridModule.dll" }}
+,{ "pid":12345, "tid":19, "ts":1730453639166689, "dur":2941, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.ClusterInputModule.dll" }}
+,{ "pid":12345, "tid":19, "ts":1730453639169681, "dur":6789, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/sharedassets0.assets.resS" }}
+,{ "pid":12345, "tid":19, "ts":1730453639176510, "dur":155553, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":20, "ts":1730453639139482, "dur":2013, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":20, "ts":1730453639141495, "dur":2318, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":20, "ts":1730453639143832, "dur":54, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\MonoBleedingEdge\\lib\\mono\\unityjit-win32\\System.Security.dll" }}
+,{ "pid":12345, "tid":20, "ts":1730453639143814, "dur":73, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Security.dll" }}
+,{ "pid":12345, "tid":20, "ts":1730453639167727, "dur":6077, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Security.dll" }}
+,{ "pid":12345, "tid":20, "ts":1730453639173864, "dur":3317, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/level0" }}
+,{ "pid":12345, "tid":20, "ts":1730453639177252, "dur":154950, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":21, "ts":1730453639139502, "dur":1997, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":21, "ts":1730453639141500, "dur":2281, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":21, "ts":1730453639143782, "dur":119, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/settings.map" }}
+,{ "pid":12345, "tid":21, "ts":1730453639145720, "dur":796, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/settings.map" }}
+,{ "pid":12345, "tid":21, "ts":1730453639146565, "dur":1046, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.IO.Compression.FileSystem.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639147632, "dur":758, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Data.DataSetExtensions.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639148436, "dur":814, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Mono.Security.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639149264, "dur":145, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Users\\a5820\\unity_gungi\\Library\\Bee\\PlayerScriptAssemblies\\Unity.TextMeshPro.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639149264, "dur":145, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.TextMeshPro.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639149441, "dur":1082, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.TextMeshPro.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639150566, "dur":1369, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639151966, "dur":1092, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639153081, "dur":1619, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityCurlModule.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639154748, "dur":2025, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.TextRenderingModule.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639156823, "dur":2161, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.SpriteShapeModule.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639159014, "dur":2762, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.ProfilerModule.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639161859, "dur":2829, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.JSONSerializeModule.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639164777, "dur":2626, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.DSPGraphModule.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639167490, "dur":4071, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.AccessibilityModule.dll" }}
+,{ "pid":12345, "tid":21, "ts":1730453639171615, "dur":2269, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/RuntimeInitializeOnLoads.json" }}
+,{ "pid":12345, "tid":21, "ts":1730453639173938, "dur":19339, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/globalgamemanagers.assets.resS" }}
+,{ "pid":12345, "tid":21, "ts":1730453639193309, "dur":138898, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":22, "ts":1730453639139527, "dur":1977, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":22, "ts":1730453639141505, "dur":2210, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":22, "ts":1730453639143824, "dur":76, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\mconfig\\config.xml" }}
+,{ "pid":12345, "tid":22, "ts":1730453639143792, "dur":109, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/mconfig/config.xml" }}
+,{ "pid":12345, "tid":22, "ts":1730453639167381, "dur":1245, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/mconfig/config.xml" }}
+,{ "pid":12345, "tid":22, "ts":1730453639168669, "dur":5354, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.AIModule.dll" }}
+,{ "pid":12345, "tid":22, "ts":1730453639174074, "dur":4287, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/globalgamemanagers.assets" }}
+,{ "pid":12345, "tid":22, "ts":1730453639178414, "dur":153775, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":23, "ts":1730453639139549, "dur":1960, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":23, "ts":1730453639141509, "dur":2302, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":23, "ts":1730453639143837, "dur":61, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\MonoBleedingEdge\\lib\\mono\\unityjit-win32\\System.ServiceModel.Internals.dll" }}
+,{ "pid":12345, "tid":23, "ts":1730453639143812, "dur":87, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.ServiceModel.Internals.dll" }}
+,{ "pid":12345, "tid":23, "ts":1730453639160276, "dur":2912, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.ServiceModel.Internals.dll" }}
+,{ "pid":12345, "tid":23, "ts":1730453639163435, "dur":3107, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.IMGUIModule.dll" }}
+,{ "pid":12345, "tid":23, "ts":1730453639166698, "dur":3363, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.AudioModule.dll" }}
+,{ "pid":12345, "tid":23, "ts":1730453639170182, "dur":4341, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/sharedassets0.assets" }}
+,{ "pid":12345, "tid":23, "ts":1730453639174580, "dur":3551, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/globalgamemanagers" }}
+,{ "pid":12345, "tid":23, "ts":1730453639178175, "dur":154037, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":24, "ts":1730453639139568, "dur":1945, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":24, "ts":1730453639141513, "dur":2296, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":24, "ts":1730453639143820, "dur":60, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\MonoBleedingEdge\\lib\\mono\\unityjit-win32\\System.Transactions.dll" }}
+,{ "pid":12345, "tid":24, "ts":1730453639143810, "dur":71, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Transactions.dll" }}
+,{ "pid":12345, "tid":24, "ts":1730453639183390, "dur":1570, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Transactions.dll" }}
+,{ "pid":12345, "tid":24, "ts":1730453639184994, "dur":147205, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":25, "ts":1730453639139098, "dur":1872, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":25, "ts":1730453639140973, "dur":344, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":25, "ts":1730453639141317, "dur":2392, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":25, "ts":1730453639226865, "dur":1396, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/app.info" }}
+,{ "pid":12345, "tid":25, "ts":1730453639228264, "dur":103950, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":26, "ts":1730453639139617, "dur":1906, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":26, "ts":1730453639141523, "dur":2261, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":26, "ts":1730453639143785, "dur":310, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":26, "ts":1730453639145703, "dur":730, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":26, "ts":1730453639146457, "dur":1119, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.IO.Compression.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639147598, "dur":1396, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Data.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639149022, "dur":80, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Users\\a5820\\unity_gungi\\Library\\Bee\\PlayerScriptAssemblies\\Unity.VisualScripting.State.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639149021, "dur":81, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.VisualScripting.State.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639149115, "dur":1213, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Unity.VisualScripting.State.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639150342, "dur":155, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Users\\a5820\\unity_gungi\\Library\\Bee\\PlayerScriptAssemblies\\Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639150342, "dur":155, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639150503, "dur":1071, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639151615, "dur":832, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.VideoModule.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639152471, "dur":1152, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639153665, "dur":1816, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.UmbraModule.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639155504, "dur":3429, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.TLSModule.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639158983, "dur":1924, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639160980, "dur":3202, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.LocalizationModule.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639164255, "dur":2880, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.DirectorModule.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639167173, "dur":4494, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/UnityEngine.AnimationModule.dll" }}
+,{ "pid":12345, "tid":26, "ts":1730453639171792, "dur":4040, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/resources.assets.resS" }}
+,{ "pid":12345, "tid":26, "ts":1730453639175887, "dur":156297, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":27, "ts":1730453639139149, "dur":1832, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":27, "ts":1730453639140984, "dur":371, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":27, "ts":1730453639141355, "dur":2451, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":27, "ts":1730453639143820, "dur":206, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\MonoBleedingEdge\\lib\\mono\\unityjit-win32\\System.Xml.dll" }}
+,{ "pid":12345, "tid":27, "ts":1730453639143807, "dur":220, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Xml.dll" }}
+,{ "pid":12345, "tid":27, "ts":1730453639247085, "dur":12464, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/gungi_Data/Managed/System.Xml.dll" }}
+,{ "pid":12345, "tid":27, "ts":1730453639259578, "dur":72497, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":28, "ts":1730453639139665, "dur":1867, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":28, "ts":1730453639141532, "dur":2203, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":28, "ts":1730453639143787, "dur":241, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\4.0\\web.config" }}
+,{ "pid":12345, "tid":28, "ts":1730453639143739, "dur":290, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.0/web.config" }}
+,{ "pid":12345, "tid":28, "ts":1730453639247744, "dur":970, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.0/web.config" }}
+,{ "pid":12345, "tid":28, "ts":1730453639248743, "dur":83360, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":29, "ts":1730453639139685, "dur":1851, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":29, "ts":1730453639141536, "dur":2255, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":29, "ts":1730453639143801, "dur":83, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\EmbedRuntime\\mono-2.0-bdwgc.dll" }}
+,{ "pid":12345, "tid":29, "ts":1730453639143792, "dur":93, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll" }}
+,{ "pid":12345, "tid":29, "ts":1730453639182847, "dur":41113, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll" }}
+,{ "pid":12345, "tid":29, "ts":1730453639224006, "dur":108200, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":30, "ts":1730453639139200, "dur":1920, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":30, "ts":1730453639141122, "dur":341, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":30, "ts":1730453639141463, "dur":2265, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":30, "ts":1730453639143735, "dur":59, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.32f1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\4.5\\machine.config" }}
+,{ "pid":12345, "tid":30, "ts":1730453639143729, "dur":66, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.5/machine.config" }}
+,{ "pid":12345, "tid":30, "ts":1730453639233993, "dur":1268, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.5/machine.config" }}
+,{ "pid":12345, "tid":30, "ts":1730453639235287, "dur":96835, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":31, "ts":1730453639139723, "dur":1822, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":31, "ts":1730453639141546, "dur":2178, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":31, "ts":1730453639143728, "dur":71, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.5/settings.map" }}
+,{ "pid":12345, "tid":31, "ts":1730453639225675, "dur":1468, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.5/settings.map" }}
+,{ "pid":12345, "tid":31, "ts":1730453639227169, "dur":105040, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":32, "ts":1730453639139744, "dur":1806, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":32, "ts":1730453639141550, "dur":2181, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":32, "ts":1730453639143732, "dur":58, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":32, "ts":1730453639235238, "dur":762, "ph":"X", "name": "CopyFiles",  "args": { "detail":"C:/Users/a5820/Downloads/gunngi_ver4/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":32, "ts":1730453639236022, "dur":96090, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1730453639335676, "dur":755, "ph":"X", "name": "ProfilerWriteOutput" }
+,
