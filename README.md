@@ -17,7 +17,7 @@
     <p>持ち駒を置く駒台も3D屋さんからダウンロードさせていただきました。 「https://3dyasan.com/2021/05/01/syougi_komadai/」</p>
 <br>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/3e95f13f-b8c9-4547-8886-f9d4a3efc165"><br>
+  <img src="https://github.com/user-attachments/assets/3e95f13f-b8c9-4547-8886-f9d4a3efc165" style="width: 70%;"><br>
   Assetsのイメージ図
 </p>
 <br>
@@ -25,3 +25,23 @@
 <p>
   駒が薄い気がしたので、ゲームでは厚さを倍にしています。
 </p>
+
+## ゲームの様子
+  <p></p>
+  - 初期配置
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/61eb5248-1578-44d1-89da-47a28b236180" style="width: 70%;"><br>
+      ゲームの開始画面
+    </p><br>
+  - ツケることにより駒が強化
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/abb03c28-761c-471d-8dd1-896679084c47" style="width: 40%;">
+      <img src="https://github.com/user-attachments/assets/ccdf1bee-2ad4-4f33-80e1-f5c08a65142f" style="width: 40%;"><br>
+      ツケることによる駒の移動範囲の変化比較
+    </p><br>
+  - 王手
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/31000dfc-d8aa-4591-99d3-72059e72aeef" style="width: 70%;"><br>
+      王手中の駒の様子
+    </p><br>
+  - 詰み
