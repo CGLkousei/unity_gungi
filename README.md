@@ -14,7 +14,7 @@
   - 碁盤
     <p><a href="https://3dyasan.com/">3D屋さん</a>様から将棋盤のデータをダウンロードさせていただきました。「https://3dyasan.com/2021/05/01/shougi_ban/」</p>
   - 駒台
-    <p>持ち駒を置く駒台も3D屋さんからダウンロードさせていただきました。 「https://3dyasan.com/2021/05/01/syougi_komadai/」</p>
+    <p>持ち駒を置く駒台も3D屋さん様からダウンロードさせていただきました。 「https://3dyasan.com/2021/05/01/syougi_komadai/」</p>
 <br>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/3e95f13f-b8c9-4547-8886-f9d4a3efc165" style="width: 70%;"><br>
