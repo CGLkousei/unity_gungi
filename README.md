@@ -27,7 +27,6 @@
 </p>
 
 ## ゲームの様子
-  <p></p>
   - 初期配置
     <p align="center">
       <img src="https://github.com/user-attachments/assets/61eb5248-1578-44d1-89da-47a28b236180" style="width: 70%;"><br>
@@ -45,3 +44,7 @@
       王手中の駒の様子
     </p><br>
   - 詰み
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/02aacbf3-7db4-4e2d-8dda-e14e7e305487" style="width: 70%;"><br>
+      詰ませました
+    </p><br>
